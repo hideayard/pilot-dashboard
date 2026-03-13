@@ -33,7 +33,7 @@
             left: 0;
             top: 0;
             height: 100vh;
-            width: 280px;
+            width: 260px;
             background: white;
             box-shadow: 10px 0 30px -15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
@@ -52,10 +52,10 @@
         
         /* Main Content */
         .main-content {
-            margin-left: 280px;
+            margin-left: 260px;
             transition: all 0.3s ease;
             min-height: 100vh;
-            padding: 2rem;
+            padding: 1.5rem;
         }
         
         .main-content.expanded {
@@ -65,22 +65,23 @@
         /* Account Card */
         .account-card {
             background: white;
-            border-radius: 2rem;
+            border-radius: 1.25rem;
             overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
             position: relative;
             border: 1px solid rgba(102, 126, 234, 0.1);
+            height: fit-content;
         }
         
         .account-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(102, 126, 234, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(102, 126, 234, 0.2);
         }
         
         .card-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1.5rem;
+            padding: 1rem;
             position: relative;
             overflow: hidden;
         }
@@ -102,14 +103,14 @@
         }
         
         .card-body {
-            padding: 1.5rem;
+            padding: 1rem;
         }
         
         /* Status Badge */
         .status-badge {
-            padding: 0.25rem 0.75rem;
+            padding: 0.15rem 0.5rem;
             border-radius: 9999px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -130,8 +131,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.85rem;
         }
         
         .metric-item:last-child {
@@ -140,15 +142,19 @@
         
         .metric-label {
             color: #6b7280;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
+        }
+        
+        .metric-label i {
+            font-size: 0.7rem;
         }
         
         .metric-value {
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
         
         /* Profit Colors */
@@ -170,18 +176,17 @@
         
         /* Divider */
         .card-divider {
-            height: 2px;
+            height: 1px;
             background: linear-gradient(90deg, transparent, #667eea, #764ba2, #667eea, transparent);
-            margin: 1rem 0;
+            margin: 0.75rem 0;
         }
         
         /* Action Buttons */
-        .action-buy {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 0.75rem;
-            border-radius: 1rem;
+        .action-buy, .action-sell, .action-close {
+            padding: 0.5rem;
+            border-radius: 0.75rem;
             font-weight: 600;
+            font-size: 0.75rem;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
@@ -189,78 +194,70 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.25rem;
+        }
+        
+        .action-buy {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
         }
         
         .action-buy:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 5px 10px -3px rgba(59, 130, 246, 0.5);
         }
         
         .action-sell {
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             color: white;
-            padding: 0.75rem;
-            border-radius: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
         }
         
         .action-sell:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.5);
+            box-shadow: 0 5px 10px -3px rgba(239, 68, 68, 0.5);
         }
         
         .action-close {
             background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
             color: white;
-            padding: 0.75rem;
-            border-radius: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
         }
         
         .action-close:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 5px 10px -3px rgba(139, 92, 246, 0.5);
+        }
+        
+        /* Disabled button */
+        .action-buy:disabled, .action-sell:disabled, .action-close:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         /* Menu Item */
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 0.75rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             color: #4a5568;
             transition: all 0.3s ease;
             border-radius: 0.5rem;
-            margin: 0.25rem 1rem;
+            margin: 0.2rem 0.8rem;
             cursor: pointer;
+            font-size: 0.9rem;
         }
         
         .menu-item i {
-            margin-right: 1rem;
-            font-size: 1.1rem;
-            width: 24px;
+            margin-right: 0.8rem;
+            font-size: 1rem;
+            width: 20px;
         }
         
         .menu-item:hover {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            transform: translateX(5px);
+            transform: translateX(3px);
         }
         
         .menu-item.active {
@@ -271,25 +268,34 @@
         /* Header */
         .header {
             background: white;
-            border-radius: 1.5rem;
-            padding: 1rem 2rem;
-            margin-bottom: 2rem;
+            border-radius: 1.25rem;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
         }
         
         /* Search Bar */
         .search-bar {
             background: #f7fafc;
-            border-radius: 2rem;
-            padding: 0.5rem 1rem;
+            border-radius: 1.5rem;
+            padding: 0.4rem 1rem;
             display: flex;
             align-items: center;
-            width: 300px;
+            width: 250px;
             border: 2px solid transparent;
             transition: all 0.3s ease;
+        }
+        
+        .search-bar input {
+            font-size: 0.85rem;
+            padding: 0.2rem 0.4rem;
+            background: transparent;
+            border: none;
+            outline: none;
+            flex: 1;
         }
         
         .search-bar:focus-within {
@@ -297,20 +303,11 @@
             background: white;
         }
         
-        .search-bar input {
-            background: transparent;
-            border: none;
-            outline: none;
-            flex: 1;
-            padding: 0.25rem 0.5rem;
-        }
-        
         /* Filter Buttons */
         .filter-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.875rem;
-            font-weight: 500;
+            padding: 0.35rem 0.9rem;
+            border-radius: 1.5rem;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
             cursor: pointer;
             border: 1px solid #e5e7eb;
@@ -332,8 +329,8 @@
         
         /* Avatar */
         .avatar {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
@@ -341,6 +338,7 @@
             justify-content: center;
             color: white;
             font-weight: 600;
+            font-size: 0.9rem;
         }
         
         /* Badge */
@@ -350,11 +348,254 @@
             right: -5px;
             background: #ef4444;
             color: white;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
+            font-size: 0.65rem;
+            padding: 0.15rem 0.4rem;
             border-radius: 9999px;
-            min-width: 20px;
+            min-width: 18px;
             text-align: center;
+        }
+        
+        /* Summary Cards */
+        .summary-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Grid for cards */
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .accounts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .accounts-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .accounts-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .accounts-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+        }
+        
+        .modal-container {
+            background: white;
+            border-radius: 1.25rem;
+            max-width: 400px;
+            width: 100%;
+            padding: 1.5rem;
+            transform: scale(0.9);
+            animation: modalPop 0.3s ease forwards;
+        }
+        
+        @keyframes modalPop {
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        
+        .modal-close:hover {
+            background: #e5e7eb;
+            color: #1f2937;
+        }
+        
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .modal-icon.buy {
+            background: #dbeafe;
+            color: #3b82f6;
+        }
+        
+        .modal-icon.sell {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+        
+        .modal-icon.close {
+            background: #ede9fe;
+            color: #8b5cf6;
+        }
+        
+        .modal-account-info {
+            background: #f9fafb;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .modal-account-id {
+            font-weight: 700;
+            color: #1f2937;
+        }
+        
+        .modal-bot-name {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .modal-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .modal-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px -3px rgba(102, 126, 234, 0.5);
+        }
+        
+        .modal-btn-secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+        
+        .modal-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+        
+        .modal-btn-buy {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        
+        .modal-btn-sell {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+        
+        .modal-btn-close {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+        
+        .trade-summary {
+            background: #f3f4f6;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            font-size: 0.875rem;
+        }
+        
+        .trade-summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #d1d5db;
+        }
+        
+        .trade-summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            z-index: 200;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast.error {
+            border-left-color: #ef4444;
+        }
+        
+        .toast.warning {
+            border-left-color: #f59e0b;
         }
         
         /* Responsive */
@@ -374,38 +615,47 @@
             
             .header {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.75rem;
             }
             
             .search-bar {
                 width: 100%;
             }
+            
+            .accounts-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
         
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
-            border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 4px;
+            border-radius: 3px;
         }
         
-        /* Pulse Animation */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        /* Loading Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
         }
         
-        .pulse-animation {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -413,28 +663,28 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <!-- Logo -->
-        <div class="p-6 border-b border-gray-200">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-chart-line text-white text-xl"></i>
+        <div class="p-4 border-b border-gray-200">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-chart-line text-white text-sm"></i>
                 </div>
-                <span class="logo-text text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">MT4 Hub</span>
+                <span class="logo-text text-base font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">MT4 Hub</span>
             </div>
         </div>
         
         <!-- User Info -->
-        <div class="p-4 border-b border-gray-200">
-            <div class="flex items-center space-x-3">
+        <div class="p-3 border-b border-gray-200">
+            <div class="flex items-center space-x-2">
                 <div class="avatar">JD</div>
                 <div class="sidebar-text">
-                    <p class="font-semibold text-gray-800">John Doe</p>
+                    <p class="font-semibold text-gray-800 text-sm">John Doe</p>
                     <p class="text-xs text-gray-500">Premium Trader</p>
                 </div>
             </div>
         </div>
         
         <!-- Navigation -->
-        <nav class="mt-6">
+        <nav class="mt-4">
             <div class="menu-item" onclick="navigateTo('dashboard')">
                 <i class="fas fa-home"></i>
                 <span class="sidebar-text">Dashboard</span>
@@ -461,7 +711,7 @@
                 <span class="sidebar-text">Price Alerts</span>
             </div>
             
-            <div class="border-t border-gray-200 my-4"></div>
+            <div class="border-t border-gray-200 my-3"></div>
             
             <div class="menu-item" onclick="navigateTo('profile')">
                 <i class="fas fa-user"></i>
@@ -478,11 +728,11 @@
         </nav>
         
         <!-- Upgrade Banner -->
-        <div class="absolute bottom-4 left-4 right-4 p-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl text-white sidebar-text">
-            <p class="text-sm font-semibold mb-1">Upgrade to Pro</p>
-            <p class="text-xs opacity-90 mb-2">Get advanced features</p>
-            <button class="bg-white text-blue-600 text-xs px-3 py-1 rounded-full font-semibold hover:bg-opacity-90">
-                Upgrade Now
+        <div class="absolute bottom-3 left-3 right-3 p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white sidebar-text">
+            <p class="text-xs font-semibold mb-1">Upgrade to Pro</p>
+            <p class="text-xs opacity-90 mb-1">Get advanced features</p>
+            <button class="bg-white text-blue-600 text-xs px-2 py-1 rounded-full font-semibold">
+                Upgrade
             </button>
         </div>
     </div>
@@ -491,659 +741,602 @@
     <div class="main-content" id="mainContent">
         <!-- Header -->
         <div class="header" data-aos="fade-down">
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3">
                 <button class="md:hidden text-gray-600" onclick="toggleSidebar()">
-                    <i class="fas fa-bars text-2xl"></i>
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
                 <button class="hidden md:block text-gray-600" onclick="toggleSidebarCollapse()">
-                    <i class="fas fa-bars text-2xl"></i>
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
                 <div class="search-bar">
-                    <i class="fas fa-search text-gray-400"></i>
+                    <i class="fas fa-search text-gray-400 text-sm"></i>
                     <input type="text" placeholder="Search accounts...">
                 </div>
             </div>
             
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3">
                 <div class="relative">
-                    <i class="fas fa-bell text-gray-600 text-xl cursor-pointer"></i>
+                    <i class="fas fa-bell text-gray-600 text-base cursor-pointer"></i>
                     <span class="badge">5</span>
                 </div>
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-10 h-10 rounded-full cursor-pointer border-2 border-transparent hover:border-blue-600 transition-all">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-8 h-8 rounded-full cursor-pointer border-2 border-transparent hover:border-blue-600">
             </div>
         </div>
         
         <!-- Page Title -->
-        <div class="mb-8" data-aos="fade-up">
+        <div class="mb-6" data-aos="fade-up">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-800">MT4 Accounts</h1>
-                    <p class="text-gray-600 mt-2">Manage and monitor all your trading accounts</p>
+                    <h1 class="text-2xl font-bold text-gray-800">MT4 Accounts</h1>
+                    <p class="text-sm text-gray-600 mt-1">Manage and trade on all your accounts</p>
                 </div>
-                <button class="mt-4 md:mt-0 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-2 font-semibold" onclick="addNewAccount()">
+                <button class="mt-3 md:mt-0 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-2 text-sm font-semibold" onclick="addNewAccount()">
                     <i class="fas fa-plus"></i>
-                    Add New Account
+                    Add Account
                 </button>
             </div>
         </div>
         
         <!-- Filters -->
-        <div class="flex flex-wrap gap-3 mb-8" data-aos="fade-up" data-aos-delay="100">
-            <button class="filter-btn active">All Accounts</button>
-            <button class="filter-btn">Connected</button>
-            <button class="filter-btn">Disconnected</button>
-            <button class="filter-btn">Demo</button>
-            <button class="filter-btn">Real</button>
+        <div class="flex flex-wrap gap-2 mb-6" data-aos="fade-up" data-aos-delay="50">
+            <button class="filter-btn active">All (6)</button>
+            <button class="filter-btn">Connected (4)</button>
+            <button class="filter-btn">Disconnected (1)</button>
+            <button class="filter-btn">Demo (1)</button>
+            <button class="filter-btn">Real (5)</button>
         </div>
         
         <!-- Accounts Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="accountsGrid">
-            <!-- Account Card 1 -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="accounts-grid" id="accountsGrid">
+            <!-- Card 1 -->
+            <div class="account-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="card-header">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-white opacity-75 text-sm">Account ID</p>
-                            <h3 class="text-white font-bold text-2xl">#MT4-123456</h3>
+                            <p class="text-white opacity-75 text-xs">Account ID</p>
+                            <h3 class="text-white font-bold account-id">#MT4-123456</h3>
                         </div>
                         <span class="status-badge connected">
-                            <i class="fas fa-circle text-xs mr-1 animate-pulse"></i>
-                            Connected
+                            <i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>
+                            Live
                         </span>
                     </div>
-                    <div class="mt-4">
-                        <p class="text-white opacity-75 text-sm">Bot Name</p>
-                        <p class="text-white font-semibold text-lg">Quantum Scalper Pro</p>
+                    <div class="mt-2">
+                        <p class="text-white opacity-75 text-xs">Bot Name</p>
+                        <p class="text-white font-semibold bot-name">Quantum Scalper</p>
                     </div>
                 </div>
                 
                 <div class="card-body">
-                    <!-- Buy Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-up text-blue-600"></i>
                             Buy
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-blue-600">12</span> orders (2.5 lot)
+                            <span class="text-blue-600 font-bold">12</span> (2.5 lot)
                         </span>
                     </div>
                     
-                    <!-- Sell Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-down text-red-600"></i>
                             Sell
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-red-600">8</span> orders (1.8 lot)
+                            <span class="text-red-600 font-bold">8</span> (1.8 lot)
                         </span>
                     </div>
                     
-                    <!-- Profit Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-chart-line text-purple-600"></i>
                             Profit
                         </span>
                         <span class="metric-value">
-                            <span class="profit-positive font-bold">+$1,234.50</span>
-                            <span class="text-sm text-gray-500 ml-1">(+12.4%)</span>
+                            <span class="profit-positive font-bold">+$1,234</span>
+                            <span class="text-[0.6rem] text-gray-500">(12.4%)</span>
                         </span>
                     </div>
                     
-                    <!-- Balance -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-wallet text-green-600"></i>
                             Balance
                         </span>
-                        <span class="metric-value font-bold">$12,450.80</span>
+                        <span class="metric-value font-bold">$12.5k</span>
                     </div>
                     
-                    <!-- Equity -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-coins text-yellow-600"></i>
                             Equity
                         </span>
-                        <span class="metric-value font-bold">$13,890.30</span>
+                        <span class="metric-value font-bold">$13.9k</span>
                     </div>
                     
-                    <!-- Floating -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-water text-blue-600"></i>
                             Floating
                         </span>
-                        <span class="metric-value floating-positive font-bold">+$234.50</span>
+                        <span class="metric-value floating-positive font-bold">+$234</span>
                     </div>
                     
-                    <!-- Divider -->
                     <div class="card-divider"></div>
                     
-                    <!-- Action Buttons -->
-                    <div class="flex gap-3 mt-4">
-                        <button class="action-buy" onclick="executeTrade('buy', 'MT4-123456')">
-                            <i class="fas fa-arrow-up"></i>
+                    <div class="flex gap-1.5 mt-2">
+                        <button class="action-buy" onclick="openBuyModal('MT4-123456', 'Quantum Scalper', '12.5k', 'Live')">
+                            <i class="fas fa-arrow-up text-[0.6rem]"></i>
                             Buy
                         </button>
-                        <button class="action-sell" onclick="executeTrade('sell', 'MT4-123456')">
-                            <i class="fas fa-arrow-down"></i>
+                        <button class="action-sell" onclick="openSellModal('MT4-123456', 'Quantum Scalper', '12.5k', 'Live')">
+                            <i class="fas fa-arrow-down text-[0.6rem]"></i>
                             Sell
                         </button>
-                        <button class="action-close" onclick="closePositions('MT4-123456')">
-                            <i class="fas fa-times"></i>
+                        <button class="action-close" onclick="openCloseModal('MT4-123456', 'Quantum Scalper')">
+                            <i class="fas fa-times text-[0.6rem]"></i>
                             Close
                         </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Account Card 2 -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="300">
+            <!-- Card 2 -->
+            <div class="account-card" data-aos="fade-up" data-aos-delay="150">
                 <div class="card-header" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-white opacity-75 text-sm">Account ID</p>
-                            <h3 class="text-white font-bold text-2xl">#MT4-789012</h3>
+                            <p class="text-white opacity-75 text-xs">Account ID</p>
+                            <h3 class="text-white font-bold account-id">#MT4-789012</h3>
                         </div>
                         <span class="status-badge connected">
-                            <i class="fas fa-circle text-xs mr-1 animate-pulse"></i>
-                            Connected
+                            <i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>
+                            Live
                         </span>
                     </div>
-                    <div class="mt-4">
-                        <p class="text-white opacity-75 text-sm">Bot Name</p>
-                        <p class="text-white font-semibold text-lg">Forex Master EA</p>
+                    <div class="mt-2">
+                        <p class="text-white opacity-75 text-xs">Bot Name</p>
+                        <p class="text-white font-semibold bot-name">Forex Master EA</p>
                     </div>
                 </div>
                 
                 <div class="card-body">
-                    <!-- Buy Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-up text-blue-600"></i>
                             Buy
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-blue-600">24</span> orders (5.2 lot)
+                            <span class="text-blue-600 font-bold">24</span> (5.2 lot)
                         </span>
                     </div>
                     
-                    <!-- Sell Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-down text-red-600"></i>
                             Sell
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-red-600">15</span> orders (3.4 lot)
+                            <span class="text-red-600 font-bold">15</span> (3.4 lot)
                         </span>
                     </div>
                     
-                    <!-- Profit Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-chart-line text-purple-600"></i>
                             Profit
                         </span>
                         <span class="metric-value">
-                            <span class="profit-positive font-bold">+$3,450.75</span>
-                            <span class="text-sm text-gray-500 ml-1">(+18.2%)</span>
+                            <span class="profit-positive font-bold">+$3,450</span>
+                            <span class="text-[0.6rem] text-gray-500">(18.2%)</span>
                         </span>
                     </div>
                     
-                    <!-- Balance -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-wallet text-green-600"></i>
                             Balance
                         </span>
-                        <span class="metric-value font-bold">$22,890.45</span>
+                        <span class="metric-value font-bold">$22.9k</span>
                     </div>
                     
-                    <!-- Equity -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-coins text-yellow-600"></i>
                             Equity
                         </span>
-                        <span class="metric-value font-bold">$26,341.20</span>
+                        <span class="metric-value font-bold">$26.3k</span>
                     </div>
                     
-                    <!-- Floating -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-water text-blue-600"></i>
                             Floating
                         </span>
-                        <span class="metric-value floating-positive font-bold">+$890.45</span>
+                        <span class="metric-value floating-positive font-bold">+$890</span>
                     </div>
                     
-                    <!-- Divider -->
                     <div class="card-divider"></div>
                     
-                    <!-- Action Buttons -->
-                    <div class="flex gap-3 mt-4">
-                        <button class="action-buy" onclick="executeTrade('buy', 'MT4-789012')">
-                            <i class="fas fa-arrow-up"></i>
+                    <div class="flex gap-1.5 mt-2">
+                        <button class="action-buy" onclick="openBuyModal('MT4-789012', 'Forex Master EA', '22.9k', 'Live')">
+                            <i class="fas fa-arrow-up text-[0.6rem]"></i>
                             Buy
                         </button>
-                        <button class="action-sell" onclick="executeTrade('sell', 'MT4-789012')">
-                            <i class="fas fa-arrow-down"></i>
+                        <button class="action-sell" onclick="openSellModal('MT4-789012', 'Forex Master EA', '22.9k', 'Live')">
+                            <i class="fas fa-arrow-down text-[0.6rem]"></i>
                             Sell
                         </button>
-                        <button class="action-close" onclick="closePositions('MT4-789012')">
-                            <i class="fas fa-times"></i>
+                        <button class="action-close" onclick="openCloseModal('MT4-789012', 'Forex Master EA')">
+                            <i class="fas fa-times text-[0.6rem]"></i>
                             Close
                         </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Account Card 3 - Negative Floating -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="400">
+            <!-- Card 3 -->
+            <div class="account-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="card-header" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-white opacity-75 text-sm">Account ID</p>
-                            <h3 class="text-white font-bold text-2xl">#MT4-345678</h3>
+                            <p class="text-white opacity-75 text-xs">Account ID</p>
+                            <h3 class="text-white font-bold account-id">#MT4-345678</h3>
                         </div>
                         <span class="status-badge connected">
-                            <i class="fas fa-circle text-xs mr-1 animate-pulse"></i>
-                            Connected
+                            <i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>
+                            Live
                         </span>
                     </div>
-                    <div class="mt-4">
-                        <p class="text-white opacity-75 text-sm">Bot Name</p>
-                        <p class="text-white font-semibold text-lg">Trend Hunter Pro</p>
+                    <div class="mt-2">
+                        <p class="text-white opacity-75 text-xs">Bot Name</p>
+                        <p class="text-white font-semibold bot-name">Trend Hunter</p>
                     </div>
                 </div>
                 
                 <div class="card-body">
-                    <!-- Buy Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-up text-blue-600"></i>
                             Buy
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-blue-600">6</span> orders (1.2 lot)
+                            <span class="text-blue-600 font-bold">6</span> (1.2 lot)
                         </span>
                     </div>
                     
-                    <!-- Sell Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-down text-red-600"></i>
                             Sell
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-red-600">18</span> orders (4.5 lot)
+                            <span class="text-red-600 font-bold">18</span> (4.5 lot)
                         </span>
                     </div>
                     
-                    <!-- Profit Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-chart-line text-purple-600"></i>
                             Profit
                         </span>
                         <span class="metric-value">
-                            <span class="profit-negative font-bold">-$890.25</span>
-                            <span class="text-sm text-gray-500 ml-1">(-5.8%)</span>
+                            <span class="profit-negative font-bold">-$890</span>
+                            <span class="text-[0.6rem] text-gray-500">(5.8%)</span>
                         </span>
                     </div>
                     
-                    <!-- Balance -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-wallet text-green-600"></i>
                             Balance
                         </span>
-                        <span class="metric-value font-bold">$15,450.00</span>
+                        <span class="metric-value font-bold">$15.5k</span>
                     </div>
                     
-                    <!-- Equity -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-coins text-yellow-600"></i>
                             Equity
                         </span>
-                        <span class="metric-value font-bold">$14,559.75</span>
+                        <span class="metric-value font-bold">$14.6k</span>
                     </div>
                     
-                    <!-- Floating -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-water text-blue-600"></i>
                             Floating
                         </span>
-                        <span class="metric-value floating-negative font-bold">-$890.25</span>
+                        <span class="metric-value floating-negative font-bold">-$890</span>
                     </div>
                     
-                    <!-- Divider -->
                     <div class="card-divider"></div>
                     
-                    <!-- Action Buttons -->
-                    <div class="flex gap-3 mt-4">
-                        <button class="action-buy" onclick="executeTrade('buy', 'MT4-345678')">
-                            <i class="fas fa-arrow-up"></i>
+                    <div class="flex gap-1.5 mt-2">
+                        <button class="action-buy" onclick="openBuyModal('MT4-345678', 'Trend Hunter', '15.5k', 'Live')">
+                            <i class="fas fa-arrow-up text-[0.6rem]"></i>
                             Buy
                         </button>
-                        <button class="action-sell" onclick="executeTrade('sell', 'MT4-345678')">
-                            <i class="fas fa-arrow-down"></i>
+                        <button class="action-sell" onclick="openSellModal('MT4-345678', 'Trend Hunter', '15.5k', 'Live')">
+                            <i class="fas fa-arrow-down text-[0.6rem]"></i>
                             Sell
                         </button>
-                        <button class="action-close" onclick="closePositions('MT4-345678')">
-                            <i class="fas fa-times"></i>
+                        <button class="action-close" onclick="openCloseModal('MT4-345678', 'Trend Hunter')">
+                            <i class="fas fa-times text-[0.6rem]"></i>
                             Close
                         </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Account Card 4 - Demo Account -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="500">
+            <!-- Card 4 -->
+            <div class="account-card" data-aos="fade-up" data-aos-delay="250">
                 <div class="card-header" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-white opacity-75 text-sm">Account ID</p>
-                            <h3 class="text-white font-bold text-2xl">#DEMO-901234</h3>
+                            <p class="text-white opacity-75 text-xs">Account ID</p>
+                            <h3 class="text-white font-bold account-id">#DEMO-9012</h3>
                         </div>
-                        <span class="status-badge connected" style="background: #8b5cf6;">
-                            <i class="fas fa-flask text-xs mr-1"></i>
+                        <span class="status-badge" style="background: #8b5cf6;">
+                            <i class="fas fa-flask text-[0.4rem] mr-1"></i>
                             Demo
                         </span>
                     </div>
-                    <div class="mt-4">
-                        <p class="text-white opacity-75 text-sm">Bot Name</p>
-                        <p class="text-white font-semibold text-lg">AI Scalper Test</p>
+                    <div class="mt-2">
+                        <p class="text-white opacity-75 text-xs">Bot Name</p>
+                        <p class="text-white font-semibold bot-name">AI Scalper</p>
                     </div>
                 </div>
                 
                 <div class="card-body">
-                    <!-- Buy Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-up text-blue-600"></i>
                             Buy
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-blue-600">45</span> orders (9.8 lot)
+                            <span class="text-blue-600 font-bold">45</span> (9.8 lot)
                         </span>
                     </div>
                     
-                    <!-- Sell Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-down text-red-600"></i>
                             Sell
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-red-600">32</span> orders (7.2 lot)
+                            <span class="text-red-600 font-bold">32</span> (7.2 lot)
                         </span>
                     </div>
                     
-                    <!-- Profit Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-chart-line text-purple-600"></i>
                             Profit
                         </span>
                         <span class="metric-value">
-                            <span class="profit-positive font-bold">+$5,670.00</span>
-                            <span class="text-sm text-gray-500 ml-1">(+22.7%)</span>
+                            <span class="profit-positive font-bold">+$5,670</span>
+                            <span class="text-[0.6rem] text-gray-500">(22.7%)</span>
                         </span>
                     </div>
                     
-                    <!-- Balance -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-wallet text-green-600"></i>
                             Balance
                         </span>
-                        <span class="metric-value font-bold">$30,000.00</span>
+                        <span class="metric-value font-bold">$30k</span>
                     </div>
                     
-                    <!-- Equity -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-coins text-yellow-600"></i>
                             Equity
                         </span>
-                        <span class="metric-value font-bold">$35,670.00</span>
+                        <span class="metric-value font-bold">$35.7k</span>
                     </div>
                     
-                    <!-- Floating -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-water text-blue-600"></i>
                             Floating
                         </span>
-                        <span class="metric-value floating-positive font-bold">+$5,670.00</span>
+                        <span class="metric-value floating-positive font-bold">+$5.7k</span>
                     </div>
                     
-                    <!-- Divider -->
                     <div class="card-divider"></div>
                     
-                    <!-- Action Buttons -->
-                    <div class="flex gap-3 mt-4">
-                        <button class="action-buy" onclick="executeTrade('buy', 'DEMO-901234')">
-                            <i class="fas fa-arrow-up"></i>
+                    <div class="flex gap-1.5 mt-2">
+                        <button class="action-buy" onclick="openBuyModal('DEMO-9012', 'AI Scalper', '30k', 'Demo')">
+                            <i class="fas fa-arrow-up text-[0.6rem]"></i>
                             Buy
                         </button>
-                        <button class="action-sell" onclick="executeTrade('sell', 'DEMO-901234')">
-                            <i class="fas fa-arrow-down"></i>
+                        <button class="action-sell" onclick="openSellModal('DEMO-9012', 'AI Scalper', '30k', 'Demo')">
+                            <i class="fas fa-arrow-down text-[0.6rem]"></i>
                             Sell
                         </button>
-                        <button class="action-close" onclick="closePositions('DEMO-901234')">
-                            <i class="fas fa-times"></i>
+                        <button class="action-close" onclick="openCloseModal('DEMO-9012', 'AI Scalper')">
+                            <i class="fas fa-times text-[0.6rem]"></i>
                             Close
                         </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Account Card 5 - Disconnected -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="600">
+            <!-- Card 5 - Disconnected -->
+            <div class="account-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="card-header" style="background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-white opacity-75 text-sm">Account ID</p>
-                            <h3 class="text-white font-bold text-2xl">#MT4-567890</h3>
+                            <p class="text-white opacity-75 text-xs">Account ID</p>
+                            <h3 class="text-white font-bold account-id">#MT4-567890</h3>
                         </div>
                         <span class="status-badge disconnected">
-                            <i class="fas fa-circle text-xs mr-1"></i>
-                            Disconnected
+                            <i class="fas fa-circle text-[0.4rem] mr-1"></i>
+                            Offline
                         </span>
                     </div>
-                    <div class="mt-4">
-                        <p class="text-white opacity-75 text-sm">Bot Name</p>
-                        <p class="text-white font-semibold text-lg">Grid Master Pro</p>
+                    <div class="mt-2">
+                        <p class="text-white opacity-75 text-xs">Bot Name</p>
+                        <p class="text-white font-semibold bot-name">Grid Master</p>
                     </div>
                 </div>
                 
                 <div class="card-body">
-                    <!-- Buy Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-up text-blue-600"></i>
                             Buy
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-blue-600">0</span> orders (0.0 lot)
+                            <span class="text-gray-500 font-bold">0</span> (0 lot)
                         </span>
                     </div>
                     
-                    <!-- Sell Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-down text-red-600"></i>
                             Sell
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-red-600">0</span> orders (0.0 lot)
+                            <span class="text-gray-500 font-bold">0</span> (0 lot)
                         </span>
                     </div>
                     
-                    <!-- Profit Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-chart-line text-purple-600"></i>
                             Profit
                         </span>
-                        <span class="metric-value">
-                            <span class="font-bold text-gray-600">$0.00</span>
-                            <span class="text-sm text-gray-500 ml-1">(0.0%)</span>
-                        </span>
+                        <span class="metric-value text-gray-500 font-bold">$0</span>
                     </div>
                     
-                    <!-- Balance -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-wallet text-green-600"></i>
                             Balance
                         </span>
-                        <span class="metric-value font-bold">$8,500.00</span>
+                        <span class="metric-value font-bold">$8.5k</span>
                     </div>
                     
-                    <!-- Equity -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-coins text-yellow-600"></i>
                             Equity
                         </span>
-                        <span class="metric-value font-bold">$8,500.00</span>
+                        <span class="metric-value font-bold">$8.5k</span>
                     </div>
                     
-                    <!-- Floating -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-water text-blue-600"></i>
                             Floating
                         </span>
-                        <span class="metric-value font-bold text-gray-600">$0.00</span>
+                        <span class="metric-value text-gray-500 font-bold">$0</span>
                     </div>
                     
-                    <!-- Divider -->
                     <div class="card-divider"></div>
                     
-                    <!-- Action Buttons -->
-                    <div class="flex gap-3 mt-4">
-                        <button class="action-buy opacity-50 cursor-not-allowed" disabled>
-                            <i class="fas fa-arrow-up"></i>
+                    <div class="flex gap-1.5 mt-2">
+                        <button class="action-buy opacity-40 cursor-not-allowed" disabled>
                             Buy
                         </button>
-                        <button class="action-sell opacity-50 cursor-not-allowed" disabled>
-                            <i class="fas fa-arrow-down"></i>
+                        <button class="action-sell opacity-40 cursor-not-allowed" disabled>
                             Sell
                         </button>
-                        <button class="action-close opacity-50 cursor-not-allowed" disabled>
-                            <i class="fas fa-times"></i>
+                        <button class="action-close opacity-40 cursor-not-allowed" disabled>
                             Close
                         </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Account Card 6 - High Profit -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="700">
+            <!-- Card 6 -->
+            <div class="account-card" data-aos="fade-up" data-aos-delay="350">
                 <div class="card-header" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
                     <div class="flex items-start justify-between">
                         <div>
-                            <p class="text-white opacity-75 text-sm">Account ID</p>
-                            <h3 class="text-white font-bold text-2xl">#MT4-112233</h3>
+                            <p class="text-white opacity-75 text-xs">Account ID</p>
+                            <h3 class="text-white font-bold account-id">#MT4-112233</h3>
                         </div>
                         <span class="status-badge connected">
-                            <i class="fas fa-circle text-xs mr-1 animate-pulse"></i>
-                            Connected
+                            <i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>
+                            Live
                         </span>
                     </div>
-                    <div class="mt-4">
-                        <p class="text-white opacity-75 text-sm">Bot Name</p>
-                        <p class="text-white font-semibold text-lg">Gold Hunter Pro</p>
+                    <div class="mt-2">
+                        <p class="text-white opacity-75 text-xs">Bot Name</p>
+                        <p class="text-white font-semibold bot-name">Gold Hunter</p>
                     </div>
                 </div>
                 
                 <div class="card-body">
-                    <!-- Buy Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-up text-blue-600"></i>
                             Buy
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-blue-600">32</span> orders (8.5 lot)
+                            <span class="text-blue-600 font-bold">32</span> (8.5 lot)
                         </span>
                     </div>
                     
-                    <!-- Sell Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-arrow-down text-red-600"></i>
                             Sell
                         </span>
                         <span class="metric-value">
-                            <span class="font-bold text-red-600">28</span> orders (7.2 lot)
+                            <span class="text-red-600 font-bold">28</span> (7.2 lot)
                         </span>
                     </div>
                     
-                    <!-- Profit Section -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-chart-line text-purple-600"></i>
                             Profit
                         </span>
                         <span class="metric-value">
-                            <span class="profit-positive font-bold">+$8,945.30</span>
-                            <span class="text-sm text-gray-500 ml-1">(+32.8%)</span>
+                            <span class="profit-positive font-bold">+$8,945</span>
+                            <span class="text-[0.6rem] text-gray-500">(32.8%)</span>
                         </span>
                     </div>
                     
-                    <!-- Balance -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-wallet text-green-600"></i>
                             Balance
                         </span>
-                        <span class="metric-value font-bold">$27,250.00</span>
+                        <span class="metric-value font-bold">$27.3k</span>
                     </div>
                     
-                    <!-- Equity -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-coins text-yellow-600"></i>
                             Equity
                         </span>
-                        <span class="metric-value font-bold">$36,195.30</span>
+                        <span class="metric-value font-bold">$36.2k</span>
                     </div>
                     
-                    <!-- Floating -->
                     <div class="metric-item">
                         <span class="metric-label">
                             <i class="fas fa-water text-blue-600"></i>
                             Floating
                         </span>
-                        <span class="metric-value floating-positive font-bold">+$8,945.30</span>
+                        <span class="metric-value floating-positive font-bold">+$8.9k</span>
                     </div>
                     
-                    <!-- Divider -->
                     <div class="card-divider"></div>
                     
-                    <!-- Action Buttons -->
-                    <div class="flex gap-3 mt-4">
-                        <button class="action-buy" onclick="executeTrade('buy', 'MT4-112233')">
-                            <i class="fas fa-arrow-up"></i>
+                    <div class="flex gap-1.5 mt-2">
+                        <button class="action-buy" onclick="openBuyModal('MT4-112233', 'Gold Hunter', '27.3k', 'Live')">
                             Buy
                         </button>
-                        <button class="action-sell" onclick="executeTrade('sell', 'MT4-112233')">
-                            <i class="fas fa-arrow-down"></i>
+                        <button class="action-sell" onclick="openSellModal('MT4-112233', 'Gold Hunter', '27.3k', 'Live')">
                             Sell
                         </button>
-                        <button class="action-close" onclick="closePositions('MT4-112233')">
-                            <i class="fas fa-times"></i>
+                        <button class="action-close" onclick="openCloseModal('MT4-112233', 'Gold Hunter')">
                             Close
                         </button>
                     </div>
@@ -1152,34 +1345,31 @@
         </div>
         
         <!-- Summary Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8" data-aos="fade-up" data-aos-delay="800">
-            <div class="bg-white rounded-xl p-6 shadow-lg">
-                <p class="text-gray-600 text-sm mb-2">Total Accounts</p>
-                <p class="text-3xl font-bold text-gray-800">6</p>
-                <p class="text-sm text-green-600 mt-2">+2 this month</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="summary-card">
+                <p class="text-gray-500 text-xs mb-1">Total Accounts</p>
+                <p class="text-xl font-bold text-gray-800">6</p>
+                <p class="text-[0.6rem] text-green-600 mt-1">+2 this month</p>
             </div>
             
-            <div class="bg-white rounded-xl p-6 shadow-lg">
-                <p class="text-gray-600 text-sm mb-2">Total Balance</p>
-                <p class="text-3xl font-bold text-gray-800">$116,541.25</p>
-                <p class="text-sm text-green-600 mt-2">Across all accounts</p>
+            <div class="summary-card">
+                <p class="text-gray-500 text-xs mb-1">Total Balance</p>
+                <p class="text-xl font-bold text-gray-800">$116.5k</p>
             </div>
             
-            <div class="bg-white rounded-xl p-6 shadow-lg">
-                <p class="text-gray-600 text-sm mb-2">Total Profit</p>
-                <p class="text-3xl font-bold text-green-600">+$18,410.30</p>
-                <p class="text-sm text-gray-600 mt-2">+15.8% overall</p>
+            <div class="summary-card">
+                <p class="text-gray-500 text-xs mb-1">Total Profit</p>
+                <p class="text-xl font-bold text-green-600">+$18.4k</p>
             </div>
             
-            <div class="bg-white rounded-xl p-6 shadow-lg">
-                <p class="text-gray-600 text-sm mb-2">Active Bots</p>
-                <p class="text-3xl font-bold text-gray-800">5/6</p>
-                <p class="text-sm text-blue-600 mt-2">83% active</p>
+            <div class="summary-card">
+                <p class="text-gray-500 text-xs mb-1">Active Bots</p>
+                <p class="text-xl font-bold text-gray-800">5/6</p>
             </div>
         </div>
         
         <!-- Footer -->
-        <div class="mt-8 text-center text-gray-500 text-sm">
+        <div class="mt-6 text-center text-gray-400 text-xs">
             <p>© 2024 MT4 Trading Hub. All rights reserved.</p>
         </div>
     </div>
@@ -1187,25 +1377,155 @@
     <!-- Mobile Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleSidebar()"></div>
     
-    <!-- Trade Confirmation Modal -->
-    <div id="tradeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 transform transition-all">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-bold text-gray-800">Confirm Trade</h3>
-                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+    <!-- Buy Modal -->
+    <div id="buyModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4" style="display: none;">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Open Buy Trade</h3>
+                <button class="modal-close" onclick="closeBuyModal()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div id="modalContent" class="mb-6">
-                <!-- Dynamic content will be inserted here -->
+            
+            <div class="modal-icon buy">
+                <i class="fas fa-arrow-up"></i>
             </div>
-            <div class="flex gap-3">
-                <button class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-xl hover:bg-gray-200 transition" onclick="closeModal()">
+            
+            <div class="modal-account-info" id="buyAccountInfo">
+                <!-- Will be filled by JavaScript -->
+            </div>
+            
+            <div class="trade-summary">
+                <div class="trade-summary-item">
+                    <span class="text-gray-600">Order Type:</span>
+                    <span class="font-semibold text-blue-600">BUY (Market)</span>
+                </div>
+                <div class="trade-summary-item">
+                    <span class="text-gray-600">Volume:</span>
+                    <span class="font-semibold">0.1 lot (default)</span>
+                </div>
+                <div class="trade-summary-item">
+                    <span class="text-gray-600">Est. Margin:</span>
+                    <span class="font-semibold">$50.00</span>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-secondary" onclick="closeBuyModal()">
                     Cancel
                 </button>
-                <button id="confirmBtn" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 rounded-xl hover:from-blue-700 hover:to-purple-700 transition">
-                    Confirm
+                <button class="modal-btn modal-btn-buy" onclick="confirmBuyTrade()">
+                    <i class="fas fa-check mr-1"></i>
+                    Confirm Buy
                 </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sell Modal -->
+    <div id="sellModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4" style="display: none;">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Open Sell Trade</h3>
+                <button class="modal-close" onclick="closeSellModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-icon sell">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            
+            <div class="modal-account-info" id="sellAccountInfo">
+                <!-- Will be filled by JavaScript -->
+            </div>
+            
+            <div class="trade-summary">
+                <div class="trade-summary-item">
+                    <span class="text-gray-600">Order Type:</span>
+                    <span class="font-semibold text-red-600">SELL (Market)</span>
+                </div>
+                <div class="trade-summary-item">
+                    <span class="text-gray-600">Volume:</span>
+                    <span class="font-semibold">0.1 lot (default)</span>
+                </div>
+                <div class="trade-summary-item">
+                    <span class="text-gray-600">Est. Margin:</span>
+                    <span class="font-semibold">$50.00</span>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-secondary" onclick="closeSellModal()">
+                    Cancel
+                </button>
+                <button class="modal-btn modal-btn-sell" onclick="confirmSellTrade()">
+                    <i class="fas fa-check mr-1"></i>
+                    Confirm Sell
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Close Positions Modal -->
+    <div id="closeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4" style="display: none;">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Close All Positions</h3>
+                <button class="modal-close" onclick="closeCloseModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-icon close">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <div class="modal-account-info" id="closeAccountInfo">
+                <!-- Will be filled by JavaScript -->
+            </div>
+            
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm text-yellow-800 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                This will close ALL open positions for this account. This action cannot be undone.
+            </div>
+            
+            <div class="trade-summary">
+                <div class="trade-summary-item">
+                    <span class="text-gray-600">Open Positions:</span>
+                    <span class="font-semibold" id="openPositionsCount">20</span>
+                </div>
+                <div class="trade-summary-item">
+                    <span class="text-gray-600">Total Volume:</span>
+                    <span class="font-semibold" id="totalVolume">4.3 lot</span>
+                </div>
+                <div class="trade-summary-item">
+                    <span class="text-gray-600">Current Floating:</span>
+                    <span class="font-semibold text-green-600" id="currentFloating">+$234</span>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-secondary" onclick="closeCloseModal()">
+                    Cancel
+                </button>
+                <button class="modal-btn modal-btn-close" onclick="confirmClosePositions()">
+                    <i class="fas fa-check mr-1"></i>
+                    Close All
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="flex items-start gap-3">
+            <div class="text-green-600">
+                <i class="fas fa-check-circle text-xl"></i>
+            </div>
+            <div>
+                <p class="font-semibold text-gray-800" id="toastTitle">Success</p>
+                <p class="text-sm text-gray-600" id="toastMessage">Trade executed successfully</p>
             </div>
         </div>
     </div>
@@ -1215,10 +1535,7 @@
     
     <script>
         // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
+        AOS.init({ duration: 600, once: true });
         
         // Check if logged in
         if (!localStorage.getItem('isLoggedIn')) {
@@ -1227,141 +1544,154 @@
         
         // Sidebar Functions
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            sidebar.classList.toggle('mobile-open');
-            overlay.classList.toggle('hidden');
+            document.getElementById('sidebar').classList.toggle('mobile-open');
+            document.getElementById('overlay').classList.toggle('hidden');
         }
         
         function toggleSidebarCollapse() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('mainContent').classList.toggle('expanded');
         }
         
         // Navigation
         function navigateTo(page) {
-            // Remove active class from all menu items
             document.querySelectorAll('.menu-item').forEach(item => {
                 item.classList.remove('active');
             });
-            
-            // Add active class to clicked item
             event.currentTarget.classList.add('active');
             
-            // Navigate to page
-            switch(page) {
-                case 'dashboard':
-                    window.location.href = 'dashboard.html';
-                    break;
-                case 'accounts':
-                    window.location.href = 'accounts.html';
-                    break;
-                case 'trading':
-                    window.location.href = 'trading.html';
-                    break;
-                case 'history':
-                    window.location.href = 'history.html';
-                    break;
-                case 'analytics':
-                    window.location.href = 'analytics.html';
-                    break;
-                default:
-                    console.log('Page not found');
-            }
+            const pages = {
+                'dashboard': 'dashboard.html',
+                'accounts': 'accounts.html',
+                'trading': 'trading.html',
+                'history': 'history.html'
+            };
+            if (pages[page]) window.location.href = pages[page];
         }
         
         // Logout
         function logout() {
             localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('username');
             window.location.href = 'login.html';
         }
         
         // Add New Account
         function addNewAccount() {
-            alert('Redirecting to add account page...');
-            // window.location.href = 'add-account.html';
+            showToast('info', 'Redirecting to add account page...');
+            setTimeout(() => {
+                // window.location.href = 'add-account.html';
+            }, 1500);
         }
         
-        // Execute Trade
-        function executeTrade(type, accountId) {
-            const modal = document.getElementById('tradeModal');
-            const modalContent = document.getElementById('modalContent');
-            const confirmBtn = document.getElementById('confirmBtn');
+        // Buy Modal Functions
+        function openBuyModal(accountId, botName, balance, type) {
+            const modal = document.getElementById('buyModal');
+            const accountInfo = document.getElementById('buyAccountInfo');
             
-            const action = type.charAt(0).toUpperCase() + type.slice(1);
-            const color = type === 'buy' ? 'blue' : 'red';
-            
-            modalContent.innerHTML = `
-                <div class="text-center mb-4">
-                    <div class="w-16 h-16 mx-auto bg-${color}-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-arrow-${type === 'buy' ? 'up' : 'down'} text-3xl text-${color}-600"></i>
-                    </div>
-                    <h4 class="text-lg font-semibold mb-2">${action} Order</h4>
-                    <p class="text-gray-600">Account: <span class="font-semibold">${accountId}</span></p>
-                </div>
-                <div class="space-y-3">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Volume (Lots)</label>
-                        <input type="number" value="0.1" step="0.01" min="0.01" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-${color}-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Stop Loss</label>
-                        <input type="number" placeholder="Optional" class="w-full px-4 py-2 border border-gray-300 rounded-xl">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Take Profit</label>
-                        <input type="number" placeholder="Optional" class="w-full px-4 py-2 border border-gray-300 rounded-xl">
-                    </div>
-                </div>
+            accountInfo.innerHTML = `
+                <div class="modal-account-id">${accountId}</div>
+                <div class="modal-bot-name">${botName} • Balance: $${balance} • ${type}</div>
             `;
             
-            confirmBtn.className = `flex-1 bg-gradient-to-r from-${color}-600 to-${color}-700 text-white py-2 rounded-xl hover:from-${color}-700 hover:to-${color}-800 transition`;
-            confirmBtn.onclick = () => {
-                alert(`${action} order placed successfully!`);
-                closeModal();
-            };
-            
-            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
         }
         
-        // Close Positions
-        function closePositions(accountId) {
-            const modal = document.getElementById('tradeModal');
-            const modalContent = document.getElementById('modalContent');
-            const confirmBtn = document.getElementById('confirmBtn');
+        function closeBuyModal() {
+            document.getElementById('buyModal').style.display = 'none';
+        }
+        
+        function confirmBuyTrade() {
+            closeBuyModal();
+            showToast('success', 'Buy order placed successfully!');
             
-            modalContent.innerHTML = `
-                <div class="text-center mb-4">
-                    <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-times text-3xl text-purple-600"></i>
-                    </div>
-                    <h4 class="text-lg font-semibold mb-2">Close All Positions</h4>
-                    <p class="text-gray-600">Account: <span class="font-semibold">${accountId}</span></p>
-                    <p class="text-sm text-gray-500 mt-2">This will close all open positions for this account</p>
-                </div>
-                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
-                    <p class="text-sm text-yellow-800">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
-                        Are you sure you want to close all positions?
-                    </p>
-                </div>
+            // Simulate updating buy count
+            setTimeout(() => {
+                // In real app, you would update the UI here
+            }, 500);
+        }
+        
+        // Sell Modal Functions
+        function openSellModal(accountId, botName, balance, type) {
+            const modal = document.getElementById('sellModal');
+            const accountInfo = document.getElementById('sellAccountInfo');
+            
+            accountInfo.innerHTML = `
+                <div class="modal-account-id">${accountId}</div>
+                <div class="modal-bot-name">${botName} • Balance: $${balance} • ${type}</div>
             `;
             
-            confirmBtn.className = 'flex-1 bg-gradient-to-r from-purple-600 to-purple-700 text-white py-2 rounded-xl hover:from-purple-700 hover:to-purple-800 transition';
-            confirmBtn.onclick = () => {
-                alert('All positions closed successfully!');
-                closeModal();
-            };
-            
-            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
         }
         
-        // Close Modal
-        function closeModal() {
-            document.getElementById('tradeModal').classList.add('hidden');
+        function closeSellModal() {
+            document.getElementById('sellModal').style.display = 'none';
+        }
+        
+        function confirmSellTrade() {
+            closeSellModal();
+            showToast('success', 'Sell order placed successfully!');
+        }
+        
+        // Close Positions Modal Functions
+        function openCloseModal(accountId, botName) {
+            const modal = document.getElementById('closeModal');
+            const accountInfo = document.getElementById('closeAccountInfo');
+            
+            accountInfo.innerHTML = `
+                <div class="modal-account-id">${accountId}</div>
+                <div class="modal-bot-name">${botName}</div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+        
+        function closeCloseModal() {
+            document.getElementById('closeModal').style.display = 'none';
+        }
+        
+        function confirmClosePositions() {
+            closeCloseModal();
+            showToast('warning', 'All positions closed successfully!');
+        }
+        
+        // Toast Notification
+        function showToast(type, message) {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+            const icon = toast.querySelector('.text-green-600, .text-red-600, .text-yellow-600');
+            
+            toast.className = 'toast';
+            
+            if (type === 'success') {
+                toast.classList.add('show');
+                toastTitle.textContent = 'Success';
+                toastMessage.textContent = message;
+                icon.className = 'text-green-600';
+                icon.innerHTML = '<i class="fas fa-check-circle text-xl"></i>';
+            } else if (type === 'error') {
+                toast.classList.add('show', 'error');
+                toastTitle.textContent = 'Error';
+                toastMessage.textContent = message;
+                icon.className = 'text-red-600';
+                icon.innerHTML = '<i class="fas fa-exclamation-circle text-xl"></i>';
+            } else if (type === 'warning') {
+                toast.classList.add('show', 'warning');
+                toastTitle.textContent = 'Warning';
+                toastMessage.textContent = message;
+                icon.className = 'text-yellow-600';
+                icon.innerHTML = '<i class="fas fa-exclamation-triangle text-xl"></i>';
+            } else {
+                toast.classList.add('show');
+                toastTitle.textContent = 'Info';
+                toastMessage.textContent = message;
+                icon.className = 'text-blue-600';
+                icon.innerHTML = '<i class="fas fa-info-circle text-xl"></i>';
+            }
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
         
         // Filter functionality
@@ -1370,48 +1700,33 @@
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 
-                // Filter accounts logic here
                 const filter = this.textContent.trim();
-                console.log('Filtering by:', filter);
+                showToast('info', `Filtering by: ${filter}`);
             });
         });
         
         // Search functionality
         document.querySelector('.search-bar input').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.account-card');
-            
-            cards.forEach(card => {
-                const accountId = card.querySelector('h3').textContent.toLowerCase();
-                const botName = card.querySelector('.text-white.font-semibold').textContent.toLowerCase();
-                
-                if (accountId.includes(searchTerm) || botName.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.account-card').forEach(card => {
+                const id = card.querySelector('h3').textContent.toLowerCase();
+                const bot = card.querySelector('.bot-name').textContent.toLowerCase();
+                card.style.display = (id.includes(term) || bot.includes(term)) ? 'block' : 'none';
             });
         });
         
         // Real-time updates simulation
         setInterval(() => {
-            // Update floating values randomly
             document.querySelectorAll('.floating-positive, .floating-negative').forEach(el => {
-                if (Math.random() > 0.7) {
-                    const currentValue = parseFloat(el.textContent.replace(/[^0-9.-]+/g, ''));
-                    const change = (Math.random() * 100 - 50).toFixed(2);
-                    const newValue = (currentValue + parseFloat(change)).toFixed(2);
-                    
-                    if (newValue > 0) {
-                        el.className = 'metric-value floating-positive font-bold';
-                        el.textContent = '+' + newValue;
-                    } else {
-                        el.className = 'metric-value floating-negative font-bold';
-                        el.textContent = newValue;
-                    }
+                if (Math.random() > 0.8) {
+                    const val = parseFloat(el.textContent.replace(/[^0-9.-]+/g, ''));
+                    const change = (Math.random() * 30 - 15).toFixed(0);
+                    const newVal = (val + parseFloat(change)).toFixed(0);
+                    el.className = newVal > 0 ? 'metric-value floating-positive font-bold' : 'metric-value floating-negative font-bold';
+                    el.textContent = (newVal > 0 ? '+' : '') + '$' + Math.abs(newVal);
                 }
             });
-        }, 5000);
+        }, 10000);
         
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
@@ -1421,9 +1736,11 @@
                 document.querySelector('.search-bar input').focus();
             }
             
-            // Escape to close modal
+            // Escape to close modals
             if (e.key === 'Escape') {
-                closeModal();
+                closeBuyModal();
+                closeSellModal();
+                closeCloseModal();
             }
             
             // Escape to close sidebar on mobile
@@ -1433,6 +1750,17 @@
                     toggleSidebar();
                 }
             }
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            const buyModal = document.getElementById('buyModal');
+            const sellModal = document.getElementById('sellModal');
+            const closeModal = document.getElementById('closeModal');
+            
+            if (e.target === buyModal) closeBuyModal();
+            if (e.target === sellModal) closeSellModal();
+            if (e.target === closeModal) closeCloseModal();
         });
     </script>
 </body>
