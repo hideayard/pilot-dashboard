@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MT4 Trading Hub - Dashboard</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -15,7 +16,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <style>
         * {
             font-family: 'Inter', sans-serif;
@@ -23,12 +24,12 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             background: #f3f4f6;
             overflow-x: hidden;
         }
-        
+
         /* Sidebar Styles */
         .sidebar {
             position: fixed;
@@ -42,26 +43,26 @@
             z-index: 50;
             overflow-y: auto;
         }
-        
+
         .sidebar.collapsed {
             width: 80px;
         }
-        
+
         .sidebar.collapsed .sidebar-text,
         .sidebar.collapsed .logo-text {
             display: none;
         }
-        
+
         .sidebar.collapsed .menu-item {
             justify-content: center;
             padding: 1rem 0;
         }
-        
+
         .sidebar.collapsed .menu-item i {
             margin-right: 0;
             font-size: 1.25rem;
         }
-        
+
         /* Main Content */
         .main-content {
             margin-left: 280px;
@@ -69,11 +70,11 @@
             min-height: 100vh;
             padding: 2rem;
         }
-        
+
         .main-content.expanded {
             margin-left: 80px;
         }
-        
+
         /* Glass Card Effect */
         .glass-card {
             background: rgba(255, 255, 255, 0.9);
@@ -81,7 +82,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Stat Card */
         .stat-card {
             background: white;
@@ -92,7 +93,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .stat-card::before {
             content: '';
             position: absolute;
@@ -104,16 +105,16 @@
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
-        
+
         .stat-card:hover::before {
             transform: scaleX(1);
         }
-        
+
         .stat-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
+
         /* Gradient Text */
         .gradient-text {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -121,7 +122,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         /* Progress Bar */
         .progress-bar {
             height: 8px;
@@ -129,21 +130,21 @@
             border-radius: 4px;
             overflow: hidden;
         }
-        
+
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #667eea, #764ba2);
             border-radius: 4px;
             transition: width 1s ease;
         }
-        
+
         /* Chart Container */
         .chart-container {
             position: relative;
             height: 300px;
             width: 100%;
         }
-        
+
         /* Avatar */
         .avatar {
             width: 40px;
@@ -156,7 +157,7 @@
             color: white;
             font-weight: 600;
         }
-        
+
         /* Notification Badge */
         .badge {
             position: absolute;
@@ -170,7 +171,7 @@
             min-width: 20px;
             text-align: center;
         }
-        
+
         /* Menu Item */
         .menu-item {
             display: flex;
@@ -184,26 +185,26 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .menu-item i {
             margin-right: 1rem;
             font-size: 1.1rem;
             width: 24px;
             text-align: center;
         }
-        
+
         .menu-item:hover {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             transform: translateX(5px);
         }
-        
+
         .menu-item.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.3);
         }
-        
+
         /* Header */
         .header {
             background: white;
@@ -215,7 +216,7 @@
             justify-content: space-between;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Search Bar */
         .search-bar {
             background: #f7fafc;
@@ -227,13 +228,13 @@
             border: 2px solid transparent;
             transition: all 0.3s ease;
         }
-        
+
         .search-bar:focus-within {
             border-color: #667eea;
             background: white;
             box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
-        
+
         .search-bar input {
             background: transparent;
             border: none;
@@ -241,7 +242,7 @@
             flex: 1;
             padding: 0.25rem 0.5rem;
         }
-        
+
         /* Table Styles */
         .table-container {
             background: white;
@@ -249,12 +250,12 @@
             padding: 1.5rem;
             overflow-x: auto;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        
+
         th {
             text-align: left;
             padding: 1rem;
@@ -262,16 +263,16 @@
             font-weight: 600;
             border-bottom: 2px solid #e2e8f0;
         }
-        
+
         td {
             padding: 1rem;
             border-bottom: 1px solid #e2e8f0;
         }
-        
+
         tr:hover {
             background: #f7fafc;
         }
-        
+
         /* Status Badge */
         .status-badge {
             padding: 0.25rem 0.75rem;
@@ -280,95 +281,101 @@
             font-weight: 500;
             display: inline-block;
         }
-        
+
         .status-badge.success {
             background: #c6f6d5;
             color: #22543d;
         }
-        
+
         .status-badge.warning {
             background: #feebc8;
             color: #744210;
         }
-        
+
         .status-badge.error {
             background: #fed7d7;
             color: #742a2a;
         }
-        
+
         /* Animations */
         @keyframes slideIn {
             from {
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         .animate-slide-in {
             animation: slideIn 0.5s ease forwards;
         }
-        
+
         /* Loading Skeleton */
         .skeleton {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: loading 1.5s infinite;
         }
-        
+
         @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
             }
-            
+
             .sidebar.mobile-open {
                 transform: translateX(0);
             }
-            
+
             .main-content {
                 margin-left: 0;
                 padding: 1rem;
             }
-            
+
             .header {
                 flex-direction: column;
                 gap: 1rem;
             }
-            
+
             .search-bar {
                 width: 100%;
             }
         }
-        
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
-        
+
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 4px;
         }
-        
+
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 4px;
         }
-        
+
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
         }
-        
+
         /* Dark Mode Toggle */
         .theme-toggle {
             width: 40px;
@@ -381,7 +388,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .theme-toggle:hover {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -389,6 +396,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
@@ -401,7 +409,7 @@
                 <span class="logo-text text-xl font-bold gradient-text">MT4 Hub</span>
             </div>
         </div>
-        
+
         <!-- User Info -->
         <div class="p-4 border-b border-gray-200">
             <div class="flex items-center space-x-3">
@@ -412,7 +420,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Navigation -->
         <nav class="mt-6">
             <div class="menu-item active" onclick="navigateTo('dashboard')">
@@ -440,9 +448,9 @@
                 <i class="fas fa-bell"></i>
                 <span class="sidebar-text">Price Alerts</span>
             </div>
-            
+
             <div class="border-t border-gray-200 my-4"></div>
-            
+
             <div class="menu-item" onclick="navigateTo('profile')">
                 <i class="fas fa-user"></i>
                 <span class="sidebar-text">Profile</span>
@@ -456,7 +464,7 @@
                 <span class="sidebar-text">Logout</span>
             </div>
         </nav>
-        
+
         <!-- Upgrade Banner -->
         <div class="absolute bottom-4 left-4 right-4 p-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl text-white sidebar-text">
             <p class="text-sm font-semibold mb-1">Upgrade to Pro</p>
@@ -466,7 +474,7 @@
             </button>
         </div>
     </div>
-    
+
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
         <!-- Header -->
@@ -483,7 +491,7 @@
                     <input type="text" placeholder="Search...">
                 </div>
             </div>
-            
+
             <div class="flex items-center space-x-4">
                 <div class="theme-toggle" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>
@@ -499,13 +507,13 @@
                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-10 h-10 rounded-full cursor-pointer border-2 border-transparent hover:border-blue-600 transition-all">
             </div>
         </div>
-        
+
         <!-- Welcome Section -->
         <div class="mb-8" data-aos="fade-up">
             <h1 class="text-3xl font-bold text-gray-800">Welcome back, John! 👋</h1>
             <p class="text-gray-600 mt-2">Here's what's happening with your trading accounts today.</p>
         </div>
-        
+
         <!-- Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
@@ -521,7 +529,7 @@
                     <div class="progress-fill" style="width: 75%"></div>
                 </div>
             </div>
-            
+
             <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="flex items-center justify-between mb-4">
                     <div class="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center">
@@ -537,7 +545,7 @@
                     <span class="text-gray-500 ml-2">vs yesterday</span>
                 </div>
             </div>
-            
+
             <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="flex items-center justify-between mb-4">
                     <div class="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center">
@@ -553,7 +561,7 @@
                     <div class="w-8 h-8 rounded-full bg-yellow-500 border-2 border-white flex items-center justify-center text-white text-xs">cTrader</div>
                 </div>
             </div>
-            
+
             <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
                 <div class="flex items-center justify-between mb-4">
                     <div class="w-12 h-12 bg-yellow-100 rounded-2xl flex items-center justify-center">
@@ -570,7 +578,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Charts Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <!-- Performance Chart -->
@@ -587,7 +595,7 @@
                     <canvas id="performanceChart"></canvas>
                 </div>
             </div>
-            
+
             <!-- Account Distribution -->
             <div class="bg-white rounded-2xl p-6 shadow-lg" data-aos="fade-left">
                 <h2 class="text-lg font-bold text-gray-800 mb-6">Account Distribution</h2>
@@ -619,7 +627,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- MT4 Accounts Section -->
         <div class="mb-8" data-aos="fade-up">
             <div class="flex items-center justify-between mb-6">
@@ -629,7 +637,7 @@
                     Add Account
                 </button>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Account Card 1 -->
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300">
@@ -671,7 +679,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Account Card 2 -->
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300">
                     <div class="bg-gradient-to-r from-green-600 to-blue-600 p-4">
@@ -712,7 +720,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Account Card 3 -->
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300">
                     <div class="bg-gradient-to-r from-yellow-600 to-red-600 p-4">
@@ -755,13 +763,13 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Recent Trades & Market Overview -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Recent Trades -->
             <div class="bg-white rounded-2xl p-6 shadow-lg" data-aos="fade-right">
                 <h2 class="text-lg font-bold text-gray-800 mb-4">Recent Trades</h2>
-                
+
                 <div class="table-container">
                     <table>
                         <thead>
@@ -812,16 +820,16 @@
                         </tbody>
                     </table>
                 </div>
-                
+
                 <a href="#" class="block text-center text-blue-600 hover:text-blue-800 mt-4">
                     View All Trades <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
-            
+
             <!-- Market Overview -->
             <div class="bg-white rounded-2xl p-6 shadow-lg" data-aos="fade-left">
                 <h2 class="text-lg font-bold text-gray-800 mb-4">Market Overview</h2>
-                
+
                 <div class="space-y-3">
                     <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition cursor-pointer">
                         <div class="flex items-center space-x-3">
@@ -838,7 +846,7 @@
                             <p class="text-xs text-gray-500">+0.0023</p>
                         </div>
                     </div>
-                    
+
                     <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition cursor-pointer">
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
@@ -854,7 +862,7 @@
                             <p class="text-xs text-gray-500">-0.0015</p>
                         </div>
                     </div>
-                    
+
                     <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition cursor-pointer">
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
@@ -870,7 +878,7 @@
                             <p class="text-xs text-gray-500">+0.67</p>
                         </div>
                     </div>
-                    
+
                     <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition cursor-pointer">
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
@@ -886,7 +894,7 @@
                             <p class="text-xs text-gray-500">+0.0005</p>
                         </div>
                     </div>
-                    
+
                     <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition cursor-pointer">
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
@@ -902,7 +910,7 @@
                             <p class="text-xs text-gray-500">-$6.90</p>
                         </div>
                     </div>
-                    
+
                     <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition cursor-pointer">
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
@@ -919,37 +927,53 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <a href="#" class="block text-center text-blue-600 hover:text-blue-800 mt-4">
                     View Full Market <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
         </div>
-        
+
         <!-- Footer -->
         <div class="mt-8 text-center text-gray-500 text-sm">
             <p>© 2024 MT4 Trading Hub. All rights reserved.</p>
         </div>
     </div>
-    
+
     <!-- Mobile Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleSidebar()"></div>
-    
+
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+
     <script>
         // Initialize AOS
         AOS.init({
             duration: 1000,
             once: true
         });
-        
+
+        // Auth check
+        (function() {
+            try {
+                const token = localStorage.getItem("jwt");
+                const user = localStorage.getItem("user");
+
+                if (!token || !user) {
+                    console.log("Not authenticated, redirecting to login");
+                    window.location.href = "/login.php";
+                    return;
+                }
+            } catch (error) {
+                console.error("Auth check error:", error);
+                window.location.href = "/login.php";
+            }
+        })();
         // Check if logged in
-        if (!localStorage.getItem('isLoggedIn')) {
-            window.location.href = 'login.html';
-        }
-        
+        // if (!localStorage.getItem('isLoggedIn')) {
+        //     window.location.href = 'login.php';
+        // }
+
         // Performance Chart
         const ctx1 = document.getElementById('performanceChart').getContext('2d');
         new Chart(ctx1, {
@@ -1026,7 +1050,7 @@
                 }
             }
         });
-        
+
         // Distribution Chart
         const ctx2 = document.getElementById('distributionChart').getContext('2d');
         new Chart(ctx2, {
@@ -1062,75 +1086,97 @@
                 }
             }
         });
-        
+
         // Sidebar Functions
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
-            
+
             sidebar.classList.toggle('mobile-open');
             overlay.classList.toggle('hidden');
         }
-        
+
         function toggleSidebarCollapse() {
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
-            
+
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('expanded');
         }
-        
+
         // Navigation
         function navigateTo(page) {
             // Remove active class from all menu items
             document.querySelectorAll('.menu-item').forEach(item => {
                 item.classList.remove('active');
             });
-            
+
             // Add active class to clicked item
             event.currentTarget.classList.add('active');
-            
+
             // Navigate to page
-            switch(page) {
+            switch (page) {
                 case 'dashboard':
-                    window.location.href = 'dashboard.html';
+                    window.location.href = 'dashboard.php';
                     break;
                 case 'accounts':
-                    window.location.href = 'accounts.html';
+                    window.location.href = 'accounts.php';
                     break;
                 case 'trading':
-                    window.location.href = 'trading.html';
+                    window.location.href = '#'; //'trading.php';
                     break;
                 case 'history':
-                    window.location.href = 'history.html';
+                    window.location.href = '#'; //'history.php';
                     break;
                 case 'analytics':
-                    window.location.href = 'analytics.html';
+                    window.location.href = '#'; //'analytics.php';
                     break;
                 default:
                     console.log('Page not found');
             }
         }
-        
+
         // Add Account
         function addAccount() {
-            window.location.href = 'accounts.html';
+            window.location.href = 'accounts.php';
         }
-        
+
         // Logout
         function logout() {
-            // Clear localStorage
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('username');
-            
-            // Redirect to login
-            window.location.href = 'login.html';
+            Swal.fire({
+                title: 'Sign Out?',
+                text: 'Are you sure you want to sign out?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#FDA300',
+                cancelButtonColor: '#2C5282',
+                confirmButtonText: 'Yes, sign out',
+                cancelButtonText: 'Cancel',
+                background: document.documentElement.classList.contains('light-mode') ? '#FFFFFF' : '#2C3E50',
+                color: document.documentElement.classList.contains('light-mode') ? '#2C5282' : '#EDF2F7'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: "info",
+                        title: "Signing Out",
+                        timer: 1500,
+                        showConfirmButton: false,
+                        background: document.documentElement.classList.contains('light-mode') ? '#FFFFFF' : '#2C3E50',
+                        color: document.documentElement.classList.contains('light-mode') ? '#2C5282' : '#EDF2F7'
+                    });
+
+                    setTimeout(() => {
+                        localStorage.clear();
+                        window.location.href = "/login.php";
+                    }, 1500);
+                }
+            });
         }
-        
+
         // Theme Toggle
         function toggleTheme() {
             const icon = document.querySelector('.theme-toggle i');
-            
+
             if (icon.classList.contains('fa-moon')) {
                 icon.classList.remove('fa-moon');
                 icon.classList.add('fa-sun');
@@ -1143,7 +1189,7 @@
                 document.body.style.background = '#f3f4f6';
             }
         }
-        
+
         // Real-time updates simulation
         setInterval(() => {
             // Update stats randomly
@@ -1153,7 +1199,7 @@
                     const currentValue = parseFloat(stat.textContent.replace(/[^0-9.-]+/g, ''));
                     const change = (Math.random() * 100 - 50).toFixed(2);
                     const newValue = (currentValue + parseFloat(change)).toFixed(2);
-                    
+
                     if (stat.textContent.includes('$')) {
                         stat.textContent = '$' + newValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     } else {
@@ -1162,7 +1208,7 @@
                 }
             });
         }, 5000);
-        
+
         // Market ticker update
         setInterval(() => {
             const tickerItems = document.querySelectorAll('.market-ticker .ticker-item');
@@ -1173,7 +1219,7 @@
                     const change = (Math.random() * 0.5 - 0.25).toFixed(2);
                     const newValue = (currentValue + parseFloat(change)).toFixed(2);
                     priceSpan.textContent = (change > 0 ? '+' : '') + newValue + '%';
-                    
+
                     if (change > 0) {
                         item.classList.remove('down');
                         item.classList.add('up');
@@ -1184,7 +1230,7 @@
                 }
             });
         }, 3000);
-        
+
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             // Ctrl + K for search
@@ -1192,7 +1238,7 @@
                 e.preventDefault();
                 document.querySelector('.search-bar input').focus();
             }
-            
+
             // Escape to close sidebar on mobile
             if (e.key === 'Escape') {
                 const sidebar = document.getElementById('sidebar');
@@ -1201,7 +1247,7 @@
                 }
             }
         });
-        
+
         // Loading skeleton effect
         window.addEventListener('load', function() {
             document.querySelectorAll('.stat-card').forEach(card => {
@@ -1210,4 +1256,5 @@
         });
     </script>
 </body>
+
 </html>

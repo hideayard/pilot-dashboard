@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MT4 Trading Hub - Login</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -13,7 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+    <!-- Load SweetAlert2 for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         * {
             margin: 0;
@@ -21,7 +24,7 @@
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
         }
-        
+
         body {
             min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -32,7 +35,7 @@
             position: relative;
             overflow-x: hidden;
         }
-        
+
         /* Animated Background */
         .bg-animation {
             position: fixed;
@@ -43,14 +46,14 @@
             z-index: 0;
             overflow: hidden;
         }
-        
+
         .bg-animation .shape {
             position: absolute;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             animation: float 20s infinite;
         }
-        
+
         .shape-1 {
             width: 500px;
             height: 500px;
@@ -58,7 +61,7 @@
             right: -100px;
             animation-delay: 0s;
         }
-        
+
         .shape-2 {
             width: 400px;
             height: 400px;
@@ -66,7 +69,7 @@
             left: -100px;
             animation-delay: 5s;
         }
-        
+
         .shape-3 {
             width: 300px;
             height: 300px;
@@ -75,13 +78,23 @@
             transform: translate(-50%, -50%);
             animation-delay: 10s;
         }
-        
+
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(120deg); }
-            66% { transform: translate(-30px, 30px) rotate(240deg); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) rotate(240deg);
+            }
         }
-        
+
         /* Glass Card */
         .glass-card {
             background: rgba(255, 255, 255, 0.95);
@@ -92,7 +105,7 @@
             z-index: 10;
             overflow: hidden;
         }
-        
+
         .glass-card::before {
             content: '';
             position: absolute;
@@ -104,18 +117,23 @@
             background-size: 200% 100%;
             animation: gradient 3s linear infinite;
         }
-        
+
         @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
         }
-        
+
         /* Input Styles */
         .input-group {
             position: relative;
             margin-bottom: 1.5rem;
         }
-        
+
         .input-group i {
             position: absolute;
             left: 1rem;
@@ -125,7 +143,7 @@
             transition: all 0.3s ease;
             z-index: 10;
         }
-        
+
         .input-group input {
             width: 100%;
             padding: 1rem 1rem 1rem 3rem;
@@ -135,18 +153,18 @@
             transition: all 0.3s ease;
             background: white;
         }
-        
+
         .input-group input:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
             transform: translateY(-2px);
         }
-        
-        .input-group input:focus + i {
+
+        .input-group input:focus+i {
             color: #667eea;
         }
-        
+
         /* Button Styles */
         .btn-primary {
             width: 100%;
@@ -161,7 +179,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .btn-primary::before {
             content: '';
             position: absolute;
@@ -174,17 +192,17 @@
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
         }
-        
+
         .btn-primary:hover::before {
             width: 300px;
             height: 300px;
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.5);
         }
-        
+
         /* Floating Labels */
         .float-label {
             position: absolute;
@@ -198,14 +216,14 @@
             pointer-events: none;
             font-size: 1rem;
         }
-        
-        .input-group input:focus ~ .float-label,
-        .input-group input:not(:placeholder-shown) ~ .float-label {
+
+        .input-group input:focus~.float-label,
+        .input-group input:not(:placeholder-shown)~.float-label {
             top: 0;
             transform: translateY(-50%) scale(0.85);
             color: #667eea;
         }
-        
+
         /* Particle Canvas */
         #particles {
             position: fixed;
@@ -216,7 +234,7 @@
             z-index: 1;
             pointer-events: none;
         }
-        
+
         /* Market Ticker */
         .market-ticker {
             position: fixed;
@@ -229,44 +247,49 @@
             z-index: 20;
             overflow: hidden;
         }
-        
+
         .ticker-content {
             display: flex;
             animation: ticker 30s linear infinite;
             white-space: nowrap;
         }
-        
+
         .ticker-item {
             display: inline-flex;
             align-items: center;
             padding: 0 2rem;
             font-size: 0.9rem;
         }
-        
+
         .ticker-item i {
             margin-right: 0.5rem;
         }
-        
+
         .ticker-item.up {
             color: #10b981;
         }
-        
+
         .ticker-item.down {
             color: #ef4444;
         }
-        
+
         @keyframes ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .glass-card {
                 margin: 1rem;
             }
         }
-        
+
         /* Loading Animation */
         .loading {
             display: inline-block;
@@ -277,11 +300,13 @@
             border-top-color: white;
             animation: spin 1s ease-in-out infinite;
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
-        
+
         /* Success Check Animation */
         .checkmark {
             width: 80px;
@@ -294,7 +319,7 @@
             box-shadow: inset 0px 0px 0px #7ac142;
             animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
         }
-        
+
         .checkmark__circle {
             stroke-dasharray: 166;
             stroke-dashoffset: 166;
@@ -304,39 +329,51 @@
             fill: none;
             animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
         }
-        
+
         .checkmark__check {
             transform-origin: 50% 50%;
             stroke-dasharray: 48;
             stroke-dashoffset: 48;
             animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
         }
-        
+
         @keyframes stroke {
-            100% { stroke-dashoffset: 0; }
+            100% {
+                stroke-dashoffset: 0;
+            }
         }
-        
+
         @keyframes scale {
-            0%, 100% { transform: none; }
-            50% { transform: scale3d(1.1, 1.1, 1); }
+
+            0%,
+            100% {
+                transform: none;
+            }
+
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
         }
-        
+
         @keyframes fill {
-            100% { box-shadow: inset 0px 0px 0px 30px #7ac142; }
+            100% {
+                box-shadow: inset 0px 0px 0px 30px #7ac142;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Particles Canvas -->
     <canvas id="particles"></canvas>
-    
+
     <!-- Animated Background Shapes -->
     <div class="bg-animation">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
     </div>
-    
+
     <!-- Market Ticker -->
     <div class="market-ticker">
         <div class="ticker-content" id="ticker">
@@ -373,7 +410,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Login Container -->
     <div class="relative w-full max-w-6xl" data-aos="fade-up" data-aos-duration="1000">
         <div class="glass-card">
@@ -381,7 +418,7 @@
                 <!-- Left Side - Branding -->
                 <div class="lg:w-1/2 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 p-12 text-white relative overflow-hidden">
                     <div class="absolute inset-0 bg-black opacity-10"></div>
-                    
+
                     <div class="relative z-10 h-full flex flex-col">
                         <!-- Logo -->
                         <div class="mb-12" data-aos="fade-right" data-aos-delay="200">
@@ -395,18 +432,18 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Main Content -->
                         <div class="flex-1 flex flex-col justify-center">
                             <h1 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight" data-aos="fade-right" data-aos-delay="300">
                                 Trade Smarter,
                                 <span class="text-yellow-300 block">Not Harder</span>
                             </h1>
-                            
+
                             <p class="text-lg opacity-90 mb-8" data-aos="fade-right" data-aos-delay="400">
                                 Professional MT4 trading platform with advanced analytics, real-time monitoring, and powerful trading tools.
                             </p>
-                            
+
                             <!-- Feature List with Icons -->
                             <div class="space-y-4 mb-12" data-aos="fade-right" data-aos-delay="500">
                                 <div class="flex items-center space-x-3 group cursor-pointer">
@@ -434,7 +471,7 @@
                                     <span>Price alerts & notifications</span>
                                 </div>
                             </div>
-                            
+
                             <!-- Testimonial Card -->
                             <div class="bg-white bg-opacity-10 rounded-2xl p-6 backdrop-blur-lg transform hover:scale-105 transition-all duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="600">
                                 <div class="flex items-center space-x-4 mb-4">
@@ -454,7 +491,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Stats Footer -->
                         <div class="grid grid-cols-3 gap-4 mt-8" data-aos="fade-up" data-aos-delay="700">
                             <div class="text-center">
@@ -472,7 +509,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Right Side - Login Form -->
                 <div class="lg:w-1/2 p-12 bg-white">
                     <div class="h-full flex flex-col justify-center max-w-md mx-auto">
@@ -481,7 +518,7 @@
                             <h2 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back! 👋</h2>
                             <p class="text-gray-600">Sign in to access your trading dashboard</p>
                         </div>
-                        
+
                         <!-- Login Form -->
                         <form id="loginForm" class="space-y-6" data-aos="fade-left" data-aos-delay="300">
                             <!-- Username Field -->
@@ -490,7 +527,7 @@
                                 <input type="text" id="username" name="username" placeholder=" " required>
                                 <label for="username" class="float-label">Username or Email</label>
                             </div>
-                            
+
                             <!-- Password Field -->
                             <div class="input-group">
                                 <i class="fas fa-lock"></i>
@@ -500,7 +537,7 @@
                                     <i class="fas fa-eye" id="toggleIcon"></i>
                                 </button>
                             </div>
-                            
+
                             <!-- Remember Me & Forgot Password -->
                             <div class="flex items-center justify-between">
                                 <label class="flex items-center space-x-2 cursor-pointer group">
@@ -511,26 +548,26 @@
                                     Forgot Password?
                                 </a>
                             </div>
-                            
+
                             <!-- Login Button -->
-                            <button type="submit" class="btn-primary" id="loginBtn">
+                            <button type="submit" class="btn-primary" id="loginButton">
                                 <span class="relative z-10 flex items-center justify-center">
                                     <i class="fas fa-sign-in-alt mr-2"></i>
                                     Sign In
                                 </span>
                             </button>
-                            
+
                             <!-- Demo Credentials -->
-                            <div class="relative">
+                            <!-- <div class="relative">
                                 <div class="absolute inset-0 flex items-center">
                                     <div class="w-full border-t border-gray-300"></div>
                                 </div>
                                 <div class="relative flex justify-center text-sm">
                                     <span class="px-2 bg-white text-gray-500">Demo Credentials</span>
                                 </div>
-                            </div>
-                            
-                            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 text-sm border border-blue-100">
+                            </div> -->
+
+                            <!-- <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 text-sm border border-blue-100">
                                 <p class="text-gray-600 mb-2 flex items-center">
                                     <i class="fas fa-info-circle text-blue-600 mr-2"></i>
                                     Use these for testing:
@@ -545,18 +582,18 @@
                                         <p class="font-mono font-semibold text-gray-800">demo123</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </form>
-                        
+
                         <!-- Sign Up Link -->
                         <p class="mt-8 text-center text-sm text-gray-600" data-aos="fade-up" data-aos-delay="400">
-                            Don't have an account? 
+                            Don't have an account?
                             <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold group">
-                                Create free account 
+                                Create free account
                                 <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
                             </a>
                         </p>
-                        
+
                         <!-- Social Login -->
                         <div class="mt-6" data-aos="fade-up" data-aos-delay="500">
                             <div class="relative mb-4">
@@ -567,7 +604,7 @@
                                     <span class="px-2 bg-white text-gray-500">Or continue with</span>
                                 </div>
                             </div>
-                            
+
                             <div class="flex justify-center space-x-4">
                                 <button class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transform hover:scale-110 transition-all duration-300 group">
                                     <i class="fab fa-google text-xl"></i>
@@ -588,7 +625,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Toast Notification -->
     <div id="toast" class="fixed top-4 right-4 bg-white rounded-xl shadow-2xl p-4 transform translate-x-full transition-transform duration-300 z-50 max-w-sm">
         <div class="flex items-center space-x-3">
@@ -601,10 +638,10 @@
             </div>
         </div>
     </div>
-    
+
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+
     <script>
         // Initialize AOS
         AOS.init({
@@ -612,17 +649,17 @@
             once: true,
             offset: 50
         });
-        
+
         // Particles.js Background
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
-        
+
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        
+
         const particles = [];
         const particleCount = 50;
-        
+
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
@@ -633,39 +670,39 @@
                 color: `rgba(255, 255, 255, ${Math.random() * 0.3})`
             });
         }
-        
+
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             particles.forEach(particle => {
                 particle.x += particle.speedX;
                 particle.y += particle.speedY;
-                
+
                 if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
                 if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
-                
+
                 ctx.beginPath();
                 ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
                 ctx.fillStyle = particle.color;
                 ctx.fill();
             });
-            
+
             requestAnimationFrame(animateParticles);
         }
-        
+
         animateParticles();
-        
+
         // Handle window resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-        
+
         // Toggle Password Visibility
         function togglePassword() {
             const password = document.getElementById('password');
             const icon = document.getElementById('toggleIcon');
-            
+
             if (password.type === 'password') {
                 password.type = 'text';
                 icon.className = 'fas fa-eye-slash';
@@ -674,100 +711,80 @@
                 icon.className = 'fas fa-eye';
             }
         }
-        
+
         // Form Submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const loginBtn = document.getElementById('loginBtn');
-            
-            // Simple validation
-            if (!username || !password) {
-                showNotification('Please fill in all fields', 'error');
-                return;
-            }
-            
-            // Show loading state
-            const originalText = loginBtn.innerHTML;
-            loginBtn.innerHTML = '<span class="loading"></span> Signing In...';
-            loginBtn.disabled = true;
-            
-            // Simulate login
-            setTimeout(() => {
-                if ((username === 'demo_trader' && password === 'demo123') ||(username === 'admin' && password === 'admin')) {
-                    // Success
-                    showNotification('Login successful! Redirecting...', 'success');
-                    
-                    // Save to localStorage
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('username', username);
-                    
-                    // Redirect to dashboard
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.php';
-                    }, 1500);
-                } else {
-                    // Error
-                    showNotification('Invalid username or password', 'error');
-                    loginBtn.innerHTML = originalText;
-                    loginBtn.disabled = false;
-                }
-            }, 1500);
-        });
-        
-        // Show notification
-        function showNotification(message, type) {
-            const toast = document.getElementById('toast');
-            const icon = toast.querySelector('i');
-            const title = toast.querySelector('.font-semibold');
-            const desc = toast.querySelector('.text-sm');
-            
-            if (type === 'success') {
-                icon.className = 'fas fa-check-circle text-green-600 text-xl';
-                title.textContent = 'Welcome back!';
-                desc.textContent = message;
-            } else {
-                icon.className = 'fas fa-exclamation-circle text-red-600 text-xl';
-                title.textContent = 'Error';
-                desc.textContent = message;
-            }
-            
-            toast.classList.remove('translate-x-full');
-            
-            setTimeout(() => {
-                toast.classList.add('translate-x-full');
-            }, 3000);
-        }
-        
+        // document.getElementById('loginForm').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+
+        //     const username = document.getElementById('username').value;
+        //     const password = document.getElementById('password').value;
+        //     const loginButton = document.getElementById('loginButton');
+
+        //     // Simple validation
+        //     if (!username || !password) {
+        //         showNotification('Please fill in all fields', 'error');
+        //         return;
+        //     }
+
+        //     // Show loading state
+        //     const originalText = loginButton.innerHTML;
+        //     loginButton.innerHTML = '<span class="loading"></span> Signing In...';
+        //     loginButton.disabled = true;
+
+        //     // Simulate login
+        //     setTimeout(() => {
+        //         if ((username === 'demo_trader' && password === 'demo123') || (username === 'admin' && password === 'admin')) {
+        //             // Success
+        //             showNotification('Login successful! Redirecting...', 'success');
+
+        //             // Save to localStorage
+        //             localStorage.setItem('isLoggedIn', 'true');
+        //             localStorage.setItem('username', username);
+
+        //             // Redirect to dashboard
+        //             setTimeout(() => {
+        //                 window.location.href = 'dashboard.php';
+        //             }, 1500);
+        //         } else {
+        //             // Error
+        //             showNotification('Invalid username or password', 'error');
+        //             loginButton.innerHTML = originalText;
+        //             loginButton.disabled = false;
+        //         }
+        //     }, 1500);
+        // });
+
+
+
         // Auto-fill remembered user
         const rememberedUser = localStorage.getItem('rememberedUser');
         if (rememberedUser) {
             document.getElementById('username').value = rememberedUser;
             document.querySelector('input[type="checkbox"]').checked = true;
         }
-        
+
         // Add ripple effect to buttons
         document.querySelectorAll('.btn-primary').forEach(button => {
             button.addEventListener('click', function(e) {
                 const x = e.clientX - e.target.offsetLeft;
                 const y = e.clientY - e.target.offsetTop;
-                
+
                 const ripple = document.createElement('span');
                 ripple.style.left = x + 'px';
                 ripple.style.top = y + 'px';
                 ripple.className = 'ripple';
-                
+
                 this.appendChild(ripple);
-                
+
                 setTimeout(() => {
                     ripple.remove();
                 }, 600);
             });
         });
     </script>
-    
+
+    <script src="./lib/js/auth.js"></script>
+
     <style>
         /* Ripple Effect */
         .ripple {
@@ -778,14 +795,14 @@
             animation: ripple-animation 0.6s ease-out;
             pointer-events: none;
         }
-        
+
         @keyframes ripple-animation {
             to {
                 transform: scale(4);
                 opacity: 0;
             }
         }
-        
+
         /* Loading Animation */
         .loading {
             display: inline-block;
@@ -797,16 +814,18 @@
             animation: spin 1s ease-in-out infinite;
             margin-right: 8px;
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
-        
+
         /* Toast Animation */
         #toast {
             transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        
+
         /* Input Autofill Styles */
         input:-webkit-autofill,
         input:-webkit-autofill:hover,
@@ -816,4 +835,5 @@
         }
     </style>
 </body>
+
 </html>
