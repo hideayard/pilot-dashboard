@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         * {
@@ -794,569 +796,20 @@
         </div>
 
         <!-- Filters -->
-        <div class="flex flex-wrap gap-2 mb-6" data-aos="fade-up" data-aos-delay="50">
-            <button class="filter-btn active">All (6)</button>
-            <button class="filter-btn">Connected (4)</button>
-            <button class="filter-btn">Disconnected (1)</button>
-            <button class="filter-btn">Demo (1)</button>
-            <button class="filter-btn">Real (5)</button>
+        <div class="flex flex-wrap gap-2 mb-6" data-aos="fade-up" data-aos-delay="50" id="filterBar">
+            <button class="filter-btn active" data-filter="all">All (<span id="fc-all">0</span>)</button>
+            <button class="filter-btn" data-filter="connected">Connected (<span id="fc-connected">0</span>)</button>
+            <button class="filter-btn" data-filter="disconnected">Disconnected (<span id="fc-disconnected">0</span>)</button>
+            <button class="filter-btn" data-filter="demo">Demo (<span id="fc-demo">0</span>)</button>
+            <button class="filter-btn" data-filter="real">Real (<span id="fc-real">0</span>)</button>
         </div>
 
         <!-- Accounts Grid -->
         <div class="accounts-grid" id="accountsGrid">
-            <!-- Card 1 -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="card-header">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <p class="text-white opacity-75 text-xs">Account ID</p>
-                            <h3 class="text-white font-bold account-id">#MT4-123456</h3>
-                        </div>
-                        <span class="status-badge connected">
-                            <i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>
-                            Live
-                        </span>
-                    </div>
-                    <div class="mt-2">
-                        <p class="text-white opacity-75 text-xs">Bot Name</p>
-                        <p class="text-white font-semibold bot-name">Quantum Scalper</p>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-up text-blue-600"></i>
-                            Buy
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-blue-600 font-bold">12</span> (2.5 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-down text-red-600"></i>
-                            Sell
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-red-600 font-bold">8</span> (1.8 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-chart-line text-purple-600"></i>
-                            Profit
-                        </span>
-                        <span class="metric-value">
-                            <span class="profit-positive font-bold">+$1,234</span>
-                            <span class="text-[0.6rem] text-gray-500">(12.4%)</span>
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-wallet text-green-600"></i>
-                            Balance
-                        </span>
-                        <span class="metric-value font-bold">$12.5k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-coins text-yellow-600"></i>
-                            Equity
-                        </span>
-                        <span class="metric-value font-bold">$13.9k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-water text-blue-600"></i>
-                            Floating
-                        </span>
-                        <span class="metric-value floating-positive font-bold">+$234</span>
-                    </div>
-
-                    <div class="card-divider"></div>
-
-                    <div class="flex gap-1.5 mt-2">
-                        <button class="action-buy" onclick="openBuyModal('MT4-123456', 'Quantum Scalper', '12.5k', 'Live')">
-                            <i class="fas fa-arrow-up text-[0.6rem]"></i>
-                            Buy
-                        </button>
-                        <button class="action-sell" onclick="openSellModal('MT4-123456', 'Quantum Scalper', '12.5k', 'Live')">
-                            <i class="fas fa-arrow-down text-[0.6rem]"></i>
-                            Sell
-                        </button>
-                        <button class="action-close" onclick="openCloseModal('MT4-123456', 'Quantum Scalper')">
-                            <i class="fas fa-times text-[0.6rem]"></i>
-                            Close
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="150">
-                <div class="card-header" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <p class="text-white opacity-75 text-xs">Account ID</p>
-                            <h3 class="text-white font-bold account-id">#MT4-789012</h3>
-                        </div>
-                        <span class="status-badge connected">
-                            <i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>
-                            Live
-                        </span>
-                    </div>
-                    <div class="mt-2">
-                        <p class="text-white opacity-75 text-xs">Bot Name</p>
-                        <p class="text-white font-semibold bot-name">Forex Master EA</p>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-up text-blue-600"></i>
-                            Buy
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-blue-600 font-bold">24</span> (5.2 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-down text-red-600"></i>
-                            Sell
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-red-600 font-bold">15</span> (3.4 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-chart-line text-purple-600"></i>
-                            Profit
-                        </span>
-                        <span class="metric-value">
-                            <span class="profit-positive font-bold">+$3,450</span>
-                            <span class="text-[0.6rem] text-gray-500">(18.2%)</span>
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-wallet text-green-600"></i>
-                            Balance
-                        </span>
-                        <span class="metric-value font-bold">$22.9k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-coins text-yellow-600"></i>
-                            Equity
-                        </span>
-                        <span class="metric-value font-bold">$26.3k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-water text-blue-600"></i>
-                            Floating
-                        </span>
-                        <span class="metric-value floating-positive font-bold">+$890</span>
-                    </div>
-
-                    <div class="card-divider"></div>
-
-                    <div class="flex gap-1.5 mt-2">
-                        <button class="action-buy" onclick="openBuyModal('MT4-789012', 'Forex Master EA', '22.9k', 'Live')">
-                            <i class="fas fa-arrow-up text-[0.6rem]"></i>
-                            Buy
-                        </button>
-                        <button class="action-sell" onclick="openSellModal('MT4-789012', 'Forex Master EA', '22.9k', 'Live')">
-                            <i class="fas fa-arrow-down text-[0.6rem]"></i>
-                            Sell
-                        </button>
-                        <button class="action-close" onclick="openCloseModal('MT4-789012', 'Forex Master EA')">
-                            <i class="fas fa-times text-[0.6rem]"></i>
-                            Close
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="card-header" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <p class="text-white opacity-75 text-xs">Account ID</p>
-                            <h3 class="text-white font-bold account-id">#MT4-345678</h3>
-                        </div>
-                        <span class="status-badge connected">
-                            <i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>
-                            Live
-                        </span>
-                    </div>
-                    <div class="mt-2">
-                        <p class="text-white opacity-75 text-xs">Bot Name</p>
-                        <p class="text-white font-semibold bot-name">Trend Hunter</p>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-up text-blue-600"></i>
-                            Buy
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-blue-600 font-bold">6</span> (1.2 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-down text-red-600"></i>
-                            Sell
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-red-600 font-bold">18</span> (4.5 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-chart-line text-purple-600"></i>
-                            Profit
-                        </span>
-                        <span class="metric-value">
-                            <span class="profit-negative font-bold">-$890</span>
-                            <span class="text-[0.6rem] text-gray-500">(5.8%)</span>
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-wallet text-green-600"></i>
-                            Balance
-                        </span>
-                        <span class="metric-value font-bold">$15.5k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-coins text-yellow-600"></i>
-                            Equity
-                        </span>
-                        <span class="metric-value font-bold">$14.6k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-water text-blue-600"></i>
-                            Floating
-                        </span>
-                        <span class="metric-value floating-negative font-bold">-$890</span>
-                    </div>
-
-                    <div class="card-divider"></div>
-
-                    <div class="flex gap-1.5 mt-2">
-                        <button class="action-buy" onclick="openBuyModal('MT4-345678', 'Trend Hunter', '15.5k', 'Live')">
-                            <i class="fas fa-arrow-up text-[0.6rem]"></i>
-                            Buy
-                        </button>
-                        <button class="action-sell" onclick="openSellModal('MT4-345678', 'Trend Hunter', '15.5k', 'Live')">
-                            <i class="fas fa-arrow-down text-[0.6rem]"></i>
-                            Sell
-                        </button>
-                        <button class="action-close" onclick="openCloseModal('MT4-345678', 'Trend Hunter')">
-                            <i class="fas fa-times text-[0.6rem]"></i>
-                            Close
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="250">
-                <div class="card-header" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <p class="text-white opacity-75 text-xs">Account ID</p>
-                            <h3 class="text-white font-bold account-id">#DEMO-9012</h3>
-                        </div>
-                        <span class="status-badge" style="background: #8b5cf6;">
-                            <i class="fas fa-flask text-[0.4rem] mr-1"></i>
-                            Demo
-                        </span>
-                    </div>
-                    <div class="mt-2">
-                        <p class="text-white opacity-75 text-xs">Bot Name</p>
-                        <p class="text-white font-semibold bot-name">AI Scalper</p>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-up text-blue-600"></i>
-                            Buy
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-blue-600 font-bold">45</span> (9.8 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-down text-red-600"></i>
-                            Sell
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-red-600 font-bold">32</span> (7.2 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-chart-line text-purple-600"></i>
-                            Profit
-                        </span>
-                        <span class="metric-value">
-                            <span class="profit-positive font-bold">+$5,670</span>
-                            <span class="text-[0.6rem] text-gray-500">(22.7%)</span>
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-wallet text-green-600"></i>
-                            Balance
-                        </span>
-                        <span class="metric-value font-bold">$30k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-coins text-yellow-600"></i>
-                            Equity
-                        </span>
-                        <span class="metric-value font-bold">$35.7k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-water text-blue-600"></i>
-                            Floating
-                        </span>
-                        <span class="metric-value floating-positive font-bold">+$5.7k</span>
-                    </div>
-
-                    <div class="card-divider"></div>
-
-                    <div class="flex gap-1.5 mt-2">
-                        <button class="action-buy" onclick="openBuyModal('DEMO-9012', 'AI Scalper', '30k', 'Demo')">
-                            <i class="fas fa-arrow-up text-[0.6rem]"></i>
-                            Buy
-                        </button>
-                        <button class="action-sell" onclick="openSellModal('DEMO-9012', 'AI Scalper', '30k', 'Demo')">
-                            <i class="fas fa-arrow-down text-[0.6rem]"></i>
-                            Sell
-                        </button>
-                        <button class="action-close" onclick="openCloseModal('DEMO-9012', 'AI Scalper')">
-                            <i class="fas fa-times text-[0.6rem]"></i>
-                            Close
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5 - Disconnected -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="card-header" style="background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <p class="text-white opacity-75 text-xs">Account ID</p>
-                            <h3 class="text-white font-bold account-id">#MT4-567890</h3>
-                        </div>
-                        <span class="status-badge disconnected">
-                            <i class="fas fa-circle text-[0.4rem] mr-1"></i>
-                            Offline
-                        </span>
-                    </div>
-                    <div class="mt-2">
-                        <p class="text-white opacity-75 text-xs">Bot Name</p>
-                        <p class="text-white font-semibold bot-name">Grid Master</p>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-up text-blue-600"></i>
-                            Buy
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-gray-500 font-bold">0</span> (0 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-down text-red-600"></i>
-                            Sell
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-gray-500 font-bold">0</span> (0 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-chart-line text-purple-600"></i>
-                            Profit
-                        </span>
-                        <span class="metric-value text-gray-500 font-bold">$0</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-wallet text-green-600"></i>
-                            Balance
-                        </span>
-                        <span class="metric-value font-bold">$8.5k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-coins text-yellow-600"></i>
-                            Equity
-                        </span>
-                        <span class="metric-value font-bold">$8.5k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-water text-blue-600"></i>
-                            Floating
-                        </span>
-                        <span class="metric-value text-gray-500 font-bold">$0</span>
-                    </div>
-
-                    <div class="card-divider"></div>
-
-                    <div class="flex gap-1.5 mt-2">
-                        <button class="action-buy opacity-40 cursor-not-allowed" disabled>
-                            Buy
-                        </button>
-                        <button class="action-sell opacity-40 cursor-not-allowed" disabled>
-                            Sell
-                        </button>
-                        <button class="action-close opacity-40 cursor-not-allowed" disabled>
-                            Close
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="account-card" data-aos="fade-up" data-aos-delay="350">
-                <div class="card-header" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <p class="text-white opacity-75 text-xs">Account ID</p>
-                            <h3 class="text-white font-bold account-id">#MT4-112233</h3>
-                        </div>
-                        <span class="status-badge connected">
-                            <i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>
-                            Live
-                        </span>
-                    </div>
-                    <div class="mt-2">
-                        <p class="text-white opacity-75 text-xs">Bot Name</p>
-                        <p class="text-white font-semibold bot-name">Gold Hunter</p>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-up text-blue-600"></i>
-                            Buy
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-blue-600 font-bold">32</span> (8.5 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-arrow-down text-red-600"></i>
-                            Sell
-                        </span>
-                        <span class="metric-value">
-                            <span class="text-red-600 font-bold">28</span> (7.2 lot)
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-chart-line text-purple-600"></i>
-                            Profit
-                        </span>
-                        <span class="metric-value">
-                            <span class="profit-positive font-bold">+$8,945</span>
-                            <span class="text-[0.6rem] text-gray-500">(32.8%)</span>
-                        </span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-wallet text-green-600"></i>
-                            Balance
-                        </span>
-                        <span class="metric-value font-bold">$27.3k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-coins text-yellow-600"></i>
-                            Equity
-                        </span>
-                        <span class="metric-value font-bold">$36.2k</span>
-                    </div>
-
-                    <div class="metric-item">
-                        <span class="metric-label">
-                            <i class="fas fa-water text-blue-600"></i>
-                            Floating
-                        </span>
-                        <span class="metric-value floating-positive font-bold">+$8.9k</span>
-                    </div>
-
-                    <div class="card-divider"></div>
-
-                    <div class="flex gap-1.5 mt-2">
-                        <button class="action-buy" onclick="openBuyModal('MT4-112233', 'Gold Hunter', '27.3k', 'Live')">
-                            Buy
-                        </button>
-                        <button class="action-sell" onclick="openSellModal('MT4-112233', 'Gold Hunter', '27.3k', 'Live')">
-                            Sell
-                        </button>
-                        <button class="action-close" onclick="openCloseModal('MT4-112233', 'Gold Hunter')">
-                            Close
-                        </button>
-                    </div>
-                </div>
+            <!-- Loading skeleton -->
+            <div id="accounts-loading" class="col-span-full flex flex-col items-center justify-center py-16 text-gray-400">
+                <div class="spinner mb-3" style="width:36px;height:36px;border-width:3px;"></div>
+                <p class="text-sm">Loading accounts from server...</p>
             </div>
         </div>
 
@@ -1364,23 +817,23 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6" data-aos="fade-up" data-aos-delay="400">
             <div class="summary-card">
                 <p class="text-gray-500 text-xs mb-1">Total Accounts</p>
-                <p class="text-xl font-bold text-gray-800">6</p>
-                <p class="text-[0.6rem] text-green-600 mt-1">+2 this month</p>
+                <p class="text-xl font-bold text-gray-800" id="stat-total">–</p>
+                <p class="text-[0.6rem] text-green-600 mt-1" id="stat-total-sub"></p>
             </div>
 
             <div class="summary-card">
                 <p class="text-gray-500 text-xs mb-1">Total Balance</p>
-                <p class="text-xl font-bold text-gray-800">$116.5k</p>
+                <p class="text-xl font-bold text-gray-800" id="stat-balance">–</p>
             </div>
 
             <div class="summary-card">
                 <p class="text-gray-500 text-xs mb-1">Total Profit</p>
-                <p class="text-xl font-bold text-green-600">+$18.4k</p>
+                <p class="text-xl font-bold" id="stat-profit">–</p>
             </div>
 
             <div class="summary-card">
                 <p class="text-gray-500 text-xs mb-1">Active Bots</p>
-                <p class="text-xl font-bold text-gray-800">5/6</p>
+                <p class="text-xl font-bold text-gray-800" id="stat-active">–</p>
             </div>
         </div>
 
@@ -1550,30 +1003,381 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 600,
-            once: true
-        });
+        // ─── GLOBALS ────────────────────────────────────────────────────────────────
+        let accountsData  = [];   // raw server data
+        let activeFilter  = 'all';
+        let searchTerm    = '';
 
-        // Auth check
+        // Card header gradient palette (cycles through accounts)
+        const CARD_GRADIENTS = [
+            'linear-gradient(135deg,#667eea 0%,#764ba2 100%)',
+            'linear-gradient(135deg,#f59e0b 0%,#d97706 100%)',
+            'linear-gradient(135deg,#ef4444 0%,#dc2626 100%)',
+            'linear-gradient(135deg,#10b981 0%,#059669 100%)',
+            'linear-gradient(135deg,#6b7280 0%,#4b5563 100%)',
+            'linear-gradient(135deg,#8b5cf6 0%,#7c3aed 100%)',
+            'linear-gradient(135deg,#3b82f6 0%,#1d4ed8 100%)',
+            'linear-gradient(135deg,#ec4899 0%,#be185d 100%)',
+        ];
+
+        // ─── JWT UTILS ───────────────────────────────────────────────────────────────
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64    = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                return JSON.parse(atob(base64));
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function getUserIdFromJwt() {
+            const token   = localStorage.getItem('jwt');
+            if (!token) return null;
+            const payload = parseJwt(token);
+            // Support common JWT claim names for user id
+            return payload?.data?.user_id ?? payload?.data?.id ?? payload?.data?.sub ?? null;
+        }
+
+        // ─── AUTH CHECK ──────────────────────────────────────────────────────────────
         (function() {
             try {
-                const token = localStorage.getItem("jwt");
-                const user = localStorage.getItem("user");
-
+                const token = localStorage.getItem('jwt');
+                const user  = localStorage.getItem('user');
                 if (!token || !user) {
-                    console.log("Not authenticated, redirecting to login");
-                    window.location.href = "/login.php";
+                    window.location.href = '/auth/login.php';
                     return;
                 }
-            } catch (error) {
-                console.error("Auth check error:", error);
-                window.location.href = "/login.php";
+            } catch (e) {
+                window.location.href = '/auth/login.php';
             }
         })();
 
-        // Sidebar Functions
+        // ─── INIT AOS ────────────────────────────────────────────────────────────────
+        AOS.init({ duration: 600, once: true });
+
+        // ─── POPULATE SIDEBAR USER ───────────────────────────────────────────────────
+        (function() {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const name = user.name || user.username || 'User';
+            function initials(n) { return n.split(' ').map(w => w[0]).join('').toUpperCase().substring(0,2); }
+            const av = document.querySelector('.avatar');
+            if (av) av.textContent = initials(name);
+            const nm = document.querySelector('.sidebar-text .font-semibold');
+            if (nm) nm.textContent = name;
+            const rl = document.querySelector('.sidebar-text .text-xs');
+            if (rl) rl.textContent = user.user_tipe || 'Trader';
+        })();
+
+        // ─── SERVER FETCH ────────────────────────────────────────────────────────────
+        async function fetchAccountsFromServer() {
+            const authToken = localStorage.getItem('jwt');
+            if (!authToken) {
+                console.error('No authentication token available (key: jwt)');
+                throw new Error('Please login first');
+            }
+
+            // Decode user_id from JWT payload
+            const userId = getUserIdFromJwt();
+            if (!userId) {
+                console.warn('Could not decode user_id from JWT');
+            }
+
+            console.log('Fetching accounts from server for user_id:', userId);
+
+            const body = new URLSearchParams({ action: 'get_accounts_by_user'});//, user_id: userId });
+            if (userId) body.append('user_id', userId);
+
+            const response = await fetch('/proxy2.php', {
+                method:  'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Bearer ${authToken}`,
+                },
+                body,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to fetch accounts: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.success && result.data) {
+                console.log(`Fetched ${result.data.length} accounts from server`);
+                accountsData = result.data;
+                if (result.summary) updateSummaryFromServer(result.summary);
+                return result.data;
+            } else {
+                throw new Error(result.message || 'Failed to fetch accounts from server');
+            }
+        }
+
+        // ─── UPDATE SUMMARY STATS ────────────────────────────────────────────────────
+        function updateSummaryFromServer(summary) {
+            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+            const total      = summary.total_accounts   ?? accountsData.length;
+            const balance    = summary.total_balance    ?? null;
+            const profit     = summary.total_profit     ?? null;
+            const activeBots = summary.active_accounts  ?? null;
+
+            set('stat-total',   total);
+            if (balance  !== null) set('stat-balance', formatMoney(balance));
+            if (profit   !== null) {
+                const el = document.getElementById('stat-profit');
+                if (el) {
+                    el.textContent = (profit >= 0 ? '+' : '') + formatMoney(profit);
+                    el.className = 'text-xl font-bold ' + (profit >= 0 ? 'text-green-600' : 'text-red-600');
+                }
+            }
+            if (activeBots !== null) set('stat-active', `${activeBots}/${total}`);
+        }
+
+        // ─── COMPUTE SUMMARY FROM LOCAL DATA ────────────────────────────────────────
+        function computeSummaryLocal(accounts) {
+            let totalBalance = 0, totalProfit = 0, activeBots = 0;
+            let connected = 0, disconnected = 0, demo = 0, real = 0;
+
+            accounts.forEach(acc => {
+                const status  = (acc.status || acc.account_status || '').toLowerCase();
+                const type    = (acc.account_type || acc.type || '').toLowerCase();
+                const balance = parseFloat(acc.balance || acc.account_balance || 0);
+                const profit  = parseFloat(acc.profit  || acc.account_profit  || 0);
+
+                totalBalance += balance;
+                totalProfit  += profit;
+
+                const isConnected = status === 'connected' || status === 'live' || status === 'active';
+                if (isConnected) { connected++; activeBots++; } else { disconnected++; }
+                if (type === 'demo') demo++; else real++;
+            });
+
+            // Update filter counts
+            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            set('fc-all',          accounts.length);
+            set('fc-connected',    connected);
+            set('fc-disconnected', disconnected);
+            set('fc-demo',         demo);
+            set('fc-real',         real);
+
+            // Update summary cards
+            set('stat-total',   accounts.length);
+            set('stat-balance', formatMoney(totalBalance));
+            set('stat-active',  `${activeBots}/${accounts.length}`);
+            const profitEl = document.getElementById('stat-profit');
+            if (profitEl) {
+                profitEl.textContent = (totalProfit >= 0 ? '+' : '') + formatMoney(totalProfit);
+                profitEl.className   = 'text-xl font-bold ' + (totalProfit >= 0 ? 'text-green-600' : 'text-red-600');
+            }
+        }
+
+        // ─── FORMAT HELPERS ──────────────────────────────────────────────────────────
+        function formatMoney(val) {
+            const n = parseFloat(val) || 0;
+            if (Math.abs(n) >= 1000) return '$' + (n / 1000).toFixed(1) + 'k';
+            return '$' + n.toFixed(2);
+        }
+
+        function formatProfitPct(profit, balance) {
+            if (!balance || balance === 0) return '';
+            return '(' + ((profit / balance) * 100).toFixed(1) + '%)';
+        }
+
+        // ─── RENDER CARDS ────────────────────────────────────────────────────────────
+        function buildAccountCard(acc, index) {
+            const accountId   = acc.account_id   || acc.id     || `ACC-${index + 1}`;
+            const botName     = acc.bot_name      || acc.name   || acc.account_name || 'N/A';
+            const balance     = parseFloat(acc.balance  || acc.account_balance  || 0);
+            const equity      = parseFloat(acc.equity   || acc.account_equity   || 0);
+            const profit      = parseFloat(acc.profit   || acc.account_profit   || 0);
+            const floating    = parseFloat(acc.floating || acc.floating_pl      || 0);
+            const buyCount    = parseInt  (acc.buy_count  || acc.open_buy   || 0);
+            const sellCount   = parseInt  (acc.sell_count || acc.open_sell  || 0);
+            const buyLot      = parseFloat(acc.buy_lot   || acc.buy_volume  || 0);
+            const sellLot     = parseFloat(acc.sell_lot  || acc.sell_volume || 0);
+
+            const statusRaw   = (acc.status || acc.account_status || '').toLowerCase();
+            const typeRaw     = (acc.account_type || acc.type || '').toLowerCase();
+
+            const isConnected = statusRaw === 'connected' || statusRaw === 'live' || statusRaw === 'active';
+            const isDemo      = typeRaw === 'demo';
+            const isOffline   = !isConnected;
+
+            const gradient    = acc.card_color || CARD_GRADIENTS[index % CARD_GRADIENTS.length];
+
+            // Status badge
+            let statusBadge;
+            if (isDemo) {
+                statusBadge = `<span class="status-badge" style="background:#8b5cf6;"><i class="fas fa-flask text-[0.4rem] mr-1"></i>Demo</span>`;
+            } else if (isConnected) {
+                statusBadge = `<span class="status-badge connected"><i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>Live</span>`;
+            } else {
+                statusBadge = `<span class="status-badge disconnected"><i class="fas fa-circle text-[0.4rem] mr-1"></i>Offline</span>`;
+            }
+
+            // Profit display
+            const profitClass = profit >= 0 ? 'profit-positive' : 'profit-negative';
+            const profitSign  = profit >= 0 ? '+' : '';
+            const profitPct   = formatProfitPct(profit, balance);
+
+            // Floating display
+            const floatClass  = floating >= 0 ? 'floating-positive' : 'floating-negative';
+            const floatSign   = floating >= 0 ? '+' : '';
+
+            // Action buttons
+            const btnDisabled = isOffline ? 'disabled' : '';
+            const btnOpacity  = isOffline ? 'opacity-40 cursor-not-allowed' : '';
+
+            const safeId      = String(accountId).replace(/['"]/g, '');
+            const safeBot     = botName.replace(/['"]/g, '');
+            const safeBalance = formatMoney(balance).replace(/['"]/g, '');
+            const safeType    = isDemo ? 'Demo' : 'Live';
+
+            return `
+            <div class="account-card"
+                 data-status="${isConnected ? 'connected' : 'disconnected'}"
+                 data-type="${isDemo ? 'demo' : 'real'}"
+                 data-id="${safeId.toLowerCase()}"
+                 data-bot="${safeBot.toLowerCase()}">
+                <div class="card-header" style="background:${gradient};">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-white opacity-75 text-xs">Account ID</p>
+                            <h3 class="text-white font-bold account-id">#${safeId}</h3>
+                        </div>
+                        ${statusBadge}
+                    </div>
+                    <div class="mt-2">
+                        <p class="text-white opacity-75 text-xs">Bot Name</p>
+                        <p class="text-white font-semibold bot-name">${botName}</p>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="metric-item">
+                        <span class="metric-label"><i class="fas fa-arrow-up text-blue-600"></i> Buy</span>
+                        <span class="metric-value"><span class="text-blue-600 font-bold">${buyCount}</span> (${buyLot.toFixed(1)} lot)</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label"><i class="fas fa-arrow-down text-red-600"></i> Sell</span>
+                        <span class="metric-value"><span class="text-red-600 font-bold">${sellCount}</span> (${sellLot.toFixed(1)} lot)</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label"><i class="fas fa-chart-line text-purple-600"></i> Profit</span>
+                        <span class="metric-value">
+                            <span class="${profitClass} font-bold">${profitSign}${formatMoney(profit)}</span>
+                            <span class="text-[0.6rem] text-gray-500">${profitPct}</span>
+                        </span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label"><i class="fas fa-wallet text-green-600"></i> Balance</span>
+                        <span class="metric-value font-bold">${formatMoney(balance)}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label"><i class="fas fa-coins text-yellow-600"></i> Equity</span>
+                        <span class="metric-value font-bold">${formatMoney(equity)}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label"><i class="fas fa-water text-blue-600"></i> Floating</span>
+                        <span class="metric-value ${floatClass} font-bold">${floatSign}${formatMoney(floating)}</span>
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    <div class="flex gap-1.5 mt-2">
+                        <button class="action-buy ${btnOpacity}" ${btnDisabled}
+                            onclick="openBuyModal('${safeId}','${safeBot}','${safeBalance}','${safeType}')">
+                            <i class="fas fa-arrow-up text-[0.6rem]"></i> Buy
+                        </button>
+                        <button class="action-sell ${btnOpacity}" ${btnDisabled}
+                            onclick="openSellModal('${safeId}','${safeBot}','${safeBalance}','${safeType}')">
+                            <i class="fas fa-arrow-down text-[0.6rem]"></i> Sell
+                        </button>
+                        <button class="action-close ${btnOpacity}" ${btnDisabled}
+                            onclick="openCloseModal('${safeId}','${safeBot}')">
+                            <i class="fas fa-times text-[0.6rem]"></i> Close
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function renderCards(accounts) {
+            const grid    = document.getElementById('accountsGrid');
+            const loading = document.getElementById('accounts-loading');
+            if (loading) loading.remove();
+
+            if (!accounts || accounts.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-400">
+                        <i class="fas fa-wallet text-4xl mb-3"></i>
+                        <p class="text-sm">No accounts found</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = accounts.map((acc, i) => buildAccountCard(acc, i)).join('');
+        }
+
+        // ─── FILTER + SEARCH ────────────────────────────────────────────────────────
+        function applyFilterAndSearch() {
+            const cards = document.querySelectorAll('.account-card');
+            cards.forEach(card => {
+                const statusMatch = activeFilter === 'all'
+                    || (activeFilter === 'connected'    && card.dataset.status === 'connected')
+                    || (activeFilter === 'disconnected' && card.dataset.status === 'disconnected')
+                    || (activeFilter === 'demo'         && card.dataset.type   === 'demo')
+                    || (activeFilter === 'real'         && card.dataset.type   === 'real');
+
+                const searchMatch = !searchTerm
+                    || card.dataset.id.includes(searchTerm)
+                    || card.dataset.bot.includes(searchTerm);
+
+                card.style.display = (statusMatch && searchMatch) ? '' : 'none';
+            });
+        }
+
+        // Filter buttons
+        document.getElementById('filterBar').addEventListener('click', function(e) {
+            const btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeFilter = btn.dataset.filter;
+            applyFilterAndSearch();
+        });
+
+        // Search
+        document.querySelector('.search-bar input').addEventListener('input', function(e) {
+            searchTerm = e.target.value.toLowerCase().trim();
+            applyFilterAndSearch();
+        });
+
+        // ─── MAIN INIT ───────────────────────────────────────────────────────────────
+        async function initAccounts() {
+            try {
+                const data = await fetchAccountsFromServer();
+                renderCards(data);
+                computeSummaryLocal(data);
+            } catch (err) {
+                console.error('Failed to load accounts:', err);
+                const grid = document.getElementById('accountsGrid');
+                grid.innerHTML = `
+                    <div class="col-span-full flex flex-col items-center justify-center py-16 text-red-400">
+                        <i class="fas fa-exclamation-circle text-4xl mb-3"></i>
+                        <p class="text-sm font-semibold">Failed to load accounts</p>
+                        <p class="text-xs mt-1 text-gray-400">${err.message}</p>
+                        <button onclick="initAccounts()" class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm rounded-xl hover:bg-blue-700 transition">
+                            <i class="fas fa-redo mr-1"></i> Retry
+                        </button>
+                    </div>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initAccounts);
+
+        // ─── SIDEBAR ─────────────────────────────────────────────────────────────────
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('mobile-open');
             document.getElementById('overlay').classList.toggle('hidden');
@@ -1584,240 +1388,123 @@
             document.getElementById('mainContent').classList.toggle('expanded');
         }
 
-        // Navigation
+        // ─── NAVIGATION ──────────────────────────────────────────────────────────────
         function navigateTo(page) {
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.classList.remove('active');
-            });
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
             event.currentTarget.classList.add('active');
-
             const pages = {
-                'dashboard': '#',//'dashboard.html',
-                'accounts': '#',//'accounts.html',
-                'trading': '#',//'trading.html',
-                'history': '#',//'history.html'
+                dashboard:  'dashboard.php',
+                accounts:   'accounts.php',
+                trading:    'trading.php',
+                history:    'history.php',
+                analytics:  'analytics.php',
+                alerts:     'alerts.php',
+                profile:    'profile.php',
+                settings:   'settings.php',
             };
             if (pages[page]) window.location.href = pages[page];
         }
 
-        // Logout
+        // ─── LOGOUT ──────────────────────────────────────────────────────────────────
         function logout() {
             Swal.fire({
                 title: 'Sign Out?',
                 text: 'Are you sure you want to sign out?',
                 icon: 'question',
                 showCancelButton: true,
-                confirmButtonColor: '#FDA300',
-                cancelButtonColor: '#2C5282',
+                confirmButtonColor: '#667eea',
+                cancelButtonColor: '#764ba2',
                 confirmButtonText: 'Yes, sign out',
                 cancelButtonText: 'Cancel',
-                background: document.documentElement.classList.contains('light-mode') ? '#FFFFFF' : '#2C3E50',
-                color: document.documentElement.classList.contains('light-mode') ? '#2C5282' : '#EDF2F7'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: "info",
-                        title: "Signing Out",
-                        timer: 1500,
-                        showConfirmButton: false,
-                        background: document.documentElement.classList.contains('light-mode') ? '#FFFFFF' : '#2C3E50',
-                        color: document.documentElement.classList.contains('light-mode') ? '#2C5282' : '#EDF2F7'
-                    });
-
+                    Swal.fire({ icon: 'info', title: 'Signing Out', timer: 1500, showConfirmButton: false });
                     setTimeout(() => {
                         localStorage.clear();
-                        window.location.href = "/login.php";
+                        window.location.href = '/auth/login.php';
                     }, 1500);
                 }
             });
         }
 
-        // Add New Account
+        // ─── ADD ACCOUNT ─────────────────────────────────────────────────────────────
         function addNewAccount() {
             showToast('info', 'Redirecting to add account page...');
-            setTimeout(() => {
-                // window.location.href = 'add-account.html';
-            }, 1500);
+            setTimeout(() => { /* window.location.href = 'add-account.php'; */ }, 1500);
         }
 
-        // Buy Modal Functions
+        // ─── BUY MODAL ───────────────────────────────────────────────────────────────
         function openBuyModal(accountId, botName, balance, type) {
-            const modal = document.getElementById('buyModal');
-            const accountInfo = document.getElementById('buyAccountInfo');
-
-            accountInfo.innerHTML = `
+            document.getElementById('buyAccountInfo').innerHTML = `
                 <div class="modal-account-id">${accountId}</div>
-                <div class="modal-bot-name">${botName} • Balance: $${balance} • ${type}</div>
-            `;
-
-            modal.style.display = 'flex';
+                <div class="modal-bot-name">${botName} • Balance: ${balance} • ${type}</div>`;
+            document.getElementById('buyModal').style.display = 'flex';
         }
+        function closeBuyModal()  { document.getElementById('buyModal').style.display  = 'none'; }
+        function confirmBuyTrade() { closeBuyModal();  showToast('success', 'Buy order placed successfully!'); }
 
-        function closeBuyModal() {
-            document.getElementById('buyModal').style.display = 'none';
-        }
-
-        function confirmBuyTrade() {
-            closeBuyModal();
-            showToast('success', 'Buy order placed successfully!');
-
-            // Simulate updating buy count
-            setTimeout(() => {
-                // In real app, you would update the UI here
-            }, 500);
-        }
-
-        // Sell Modal Functions
+        // ─── SELL MODAL ──────────────────────────────────────────────────────────────
         function openSellModal(accountId, botName, balance, type) {
-            const modal = document.getElementById('sellModal');
-            const accountInfo = document.getElementById('sellAccountInfo');
-
-            accountInfo.innerHTML = `
+            document.getElementById('sellAccountInfo').innerHTML = `
                 <div class="modal-account-id">${accountId}</div>
-                <div class="modal-bot-name">${botName} • Balance: $${balance} • ${type}</div>
-            `;
-
-            modal.style.display = 'flex';
+                <div class="modal-bot-name">${botName} • Balance: ${balance} • ${type}</div>`;
+            document.getElementById('sellModal').style.display = 'flex';
         }
+        function closeSellModal()  { document.getElementById('sellModal').style.display = 'none'; }
+        function confirmSellTrade() { closeSellModal(); showToast('success', 'Sell order placed successfully!'); }
 
-        function closeSellModal() {
-            document.getElementById('sellModal').style.display = 'none';
-        }
-
-        function confirmSellTrade() {
-            closeSellModal();
-            showToast('success', 'Sell order placed successfully!');
-        }
-
-        // Close Positions Modal Functions
+        // ─── CLOSE POSITIONS MODAL ───────────────────────────────────────────────────
         function openCloseModal(accountId, botName) {
-            const modal = document.getElementById('closeModal');
-            const accountInfo = document.getElementById('closeAccountInfo');
-
-            accountInfo.innerHTML = `
+            document.getElementById('closeAccountInfo').innerHTML = `
                 <div class="modal-account-id">${accountId}</div>
-                <div class="modal-bot-name">${botName}</div>
-            `;
-
-            modal.style.display = 'flex';
+                <div class="modal-bot-name">${botName}</div>`;
+            document.getElementById('closeModal').style.display = 'flex';
         }
+        function closeCloseModal()  { document.getElementById('closeModal').style.display = 'none'; }
+        function confirmClosePositions() { closeCloseModal(); showToast('warning', 'All positions closed successfully!'); }
 
-        function closeCloseModal() {
-            document.getElementById('closeModal').style.display = 'none';
-        }
-
-        function confirmClosePositions() {
-            closeCloseModal();
-            showToast('warning', 'All positions closed successfully!');
-        }
-
-        // Toast Notification
+        // ─── TOAST ───────────────────────────────────────────────────────────────────
         function showToast(type, message) {
-            const toast = document.getElementById('toast');
-            const toastTitle = document.getElementById('toastTitle');
-            const toastMessage = document.getElementById('toastMessage');
-            const icon = toast.querySelector('.text-green-600, .text-red-600, .text-yellow-600');
+            const toast     = document.getElementById('toast');
+            const titleEl   = document.getElementById('toastTitle');
+            const messageEl = document.getElementById('toastMessage');
+            const iconEl    = toast.querySelector('[class*="text-"]');
 
             toast.className = 'toast';
+            const cfg = {
+                success: { cls: 'text-green-600',  icon: 'fa-check-circle',       title: 'Success',  border: '' },
+                error:   { cls: 'text-red-600',    icon: 'fa-exclamation-circle', title: 'Error',    border: 'error' },
+                warning: { cls: 'text-yellow-600', icon: 'fa-exclamation-triangle',title: 'Warning', border: 'warning' },
+                info:    { cls: 'text-blue-600',   icon: 'fa-info-circle',        title: 'Info',     border: '' },
+            }[type] || { cls: 'text-blue-600', icon: 'fa-info-circle', title: 'Info', border: '' };
 
-            if (type === 'success') {
-                toast.classList.add('show');
-                toastTitle.textContent = 'Success';
-                toastMessage.textContent = message;
-                icon.className = 'text-green-600';
-                icon.innerHTML = '<i class="fas fa-check-circle text-xl"></i>';
-            } else if (type === 'error') {
-                toast.classList.add('show', 'error');
-                toastTitle.textContent = 'Error';
-                toastMessage.textContent = message;
-                icon.className = 'text-red-600';
-                icon.innerHTML = '<i class="fas fa-exclamation-circle text-xl"></i>';
-            } else if (type === 'warning') {
-                toast.classList.add('show', 'warning');
-                toastTitle.textContent = 'Warning';
-                toastMessage.textContent = message;
-                icon.className = 'text-yellow-600';
-                icon.innerHTML = '<i class="fas fa-exclamation-triangle text-xl"></i>';
-            } else {
-                toast.classList.add('show');
-                toastTitle.textContent = 'Info';
-                toastMessage.textContent = message;
-                icon.className = 'text-blue-600';
-                icon.innerHTML = '<i class="fas fa-info-circle text-xl"></i>';
-            }
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            titleEl.textContent   = cfg.title;
+            messageEl.textContent = message;
+            iconEl.className      = cfg.cls;
+            iconEl.innerHTML      = `<i class="fas ${cfg.icon} text-xl"></i>`;
+            if (cfg.border) toast.classList.add(cfg.border);
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // Filter functionality
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-
-                const filter = this.textContent.trim();
-                showToast('info', `Filtering by: ${filter}`);
-            });
-        });
-
-        // Search functionality
-        document.querySelector('.search-bar input').addEventListener('input', function(e) {
-            const term = e.target.value.toLowerCase();
-            document.querySelectorAll('.account-card').forEach(card => {
-                const id = card.querySelector('h3').textContent.toLowerCase();
-                const bot = card.querySelector('.bot-name').textContent.toLowerCase();
-                card.style.display = (id.includes(term) || bot.includes(term)) ? 'block' : 'none';
-            });
-        });
-
-        // Real-time updates simulation
-        setInterval(() => {
-            document.querySelectorAll('.floating-positive, .floating-negative').forEach(el => {
-                if (Math.random() > 0.8) {
-                    const val = parseFloat(el.textContent.replace(/[^0-9.-]+/g, ''));
-                    const change = (Math.random() * 30 - 15).toFixed(0);
-                    const newVal = (val + parseFloat(change)).toFixed(0);
-                    el.className = newVal > 0 ? 'metric-value floating-positive font-bold' : 'metric-value floating-negative font-bold';
-                    el.textContent = (newVal > 0 ? '+' : '') + '$' + Math.abs(newVal);
-                }
-            });
-        }, 10000);
-
-        // Keyboard shortcuts
+        // ─── KEYBOARD SHORTCUTS ──────────────────────────────────────────────────────
         document.addEventListener('keydown', function(e) {
-            // Ctrl + K for search
             if (e.ctrlKey && e.key === 'k') {
                 e.preventDefault();
                 document.querySelector('.search-bar input').focus();
             }
-
-            // Escape to close modals
             if (e.key === 'Escape') {
-                closeBuyModal();
-                closeSellModal();
-                closeCloseModal();
-            }
-
-            // Escape to close sidebar on mobile
-            if (e.key === 'Escape') {
-                const sidebar = document.getElementById('sidebar');
-                if (sidebar.classList.contains('mobile-open')) {
-                    toggleSidebar();
-                }
+                closeBuyModal(); closeSellModal(); closeCloseModal();
+                const sb = document.getElementById('sidebar');
+                if (sb.classList.contains('mobile-open')) toggleSidebar();
             }
         });
 
-        // Close modals when clicking outside
+        // Close modals on backdrop click
         window.addEventListener('click', function(e) {
-            const buyModal = document.getElementById('buyModal');
-            const sellModal = document.getElementById('sellModal');
-            const closeModal = document.getElementById('closeModal');
-
-            if (e.target === buyModal) closeBuyModal();
-            if (e.target === sellModal) closeSellModal();
-            if (e.target === closeModal) closeCloseModal();
+            if (e.target === document.getElementById('buyModal'))   closeBuyModal();
+            if (e.target === document.getElementById('sellModal'))  closeSellModal();
+            if (e.target === document.getElementById('closeModal')) closeCloseModal();
         });
     </script>
 </body>

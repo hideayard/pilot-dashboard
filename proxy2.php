@@ -39,6 +39,8 @@ $apiEndpoints = [
     'register' => 'https://itrust-tech.id/web/mobile/register',
     'logout' => 'https://itrust-tech.id/web/mobile/logout',
     'forgot_password' => 'https://itrust-tech.id/web/mobile/forgot-password',
+    'get_accounts' => 'https://itrust-tech.id/web/mt4-account/get-accounts',
+    'get_accounts_by_user' => 'https://itrust-tech.id/web/mt4-account/get-accounts-by-user',
     'get_devices' => 'https://itrust-tech.id/web/mobile/get-devices',
     'get_devices_with_data' => 'https://itrust-tech.id/web/mobile/get-devices-with-data',
     'local_get_devices_with_data' => 'https://itrust.local/mobile/get-devices-with-data',
@@ -49,10 +51,16 @@ $apiEndpoints = [
 
 // Get the action from POST or GET
 $action = $_POST['action'] ?? $_GET['action'] ?? 'login';
+$user_id = $_POST['user_id'] ?? $_GET['user_id'] ?? 0;
 
 // Determine the API endpoint based on action
 $apiUrl = $apiEndpoints[$action] ?? $apiEndpoints['login'];
 
+$additional = "";
+
+if ($action == 'get_accounts_by_user' && $user_id != 0) {
+    $apiUrl .= "?user_id=" . $user_id;
+}
 // Check if action requires authentication
 $requiresAuth = in_array($action, ['get_devices', 'get_scrape_data']);
 
