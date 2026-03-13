@@ -1103,68 +1103,91 @@
 
             const result = await response.json();
 
-            if (result.success && result.data) {
-                console.log(`Fetched ${result.data.length} accounts from server`);
-                accountsData = result.data;
-                if (result.summary) updateSummaryFromServer(result.summary);
-                return result.data;
+            // Response shape: { status:"success", data:{ user:{}, summary:{}, accounts:[] } }
+            if (result.status === 'success' && result.data) {
+                const accounts = result.data.accounts || [];
+                const summary  = result.data.summary  || null;
+
+                console.log(`Fetched ${accounts.length} accounts from server`);
+                accountsData = accounts;
+
+                if (summary) updateSummaryFromServer(summary);
+                return accounts;
             } else {
-                throw new Error(result.message || 'Failed to fetch accounts from server');
+                throw new Error(result.message || result.error || 'Failed to fetch accounts from server');
             }
         }
 
         // ─── UPDATE SUMMARY STATS ────────────────────────────────────────────────────
         function updateSummaryFromServer(summary) {
+            // summary fields: total_accounts, total_balance, total_profit,
+            //                 avg_profit_percentage, active_accounts
             const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
 
-            const total      = summary.total_accounts   ?? accountsData.length;
-            const balance    = summary.total_balance    ?? null;
-            const profit     = summary.total_profit     ?? null;
-            const activeBots = summary.active_accounts  ?? null;
+            const total      = summary.total_accounts  ?? accountsData.length;
+            const balance    = summary.total_balance   ?? null;
+            const profit     = summary.total_profit    ?? null;
+            const activeBots = summary.active_accounts ?? null;
 
             set('stat-total',   total);
-            if (balance  !== null) set('stat-balance', formatMoney(balance));
-            if (profit   !== null) {
+
+            if (balance !== null) set('stat-balance', formatMoney(balance));
+
+            if (profit !== null) {
                 const el = document.getElementById('stat-profit');
                 if (el) {
                     el.textContent = (profit >= 0 ? '+' : '') + formatMoney(profit);
-                    el.className = 'text-xl font-bold ' + (profit >= 0 ? 'text-green-600' : 'text-red-600');
+                    el.className   = 'text-xl font-bold ' + (profit >= 0 ? 'text-green-600' : 'text-red-600');
                 }
             }
+
             if (activeBots !== null) set('stat-active', `${activeBots}/${total}`);
+
+            // Update filter counts from live account list
+            updateFilterCounts(accountsData);
         }
 
-        // ─── COMPUTE SUMMARY FROM LOCAL DATA ────────────────────────────────────────
-        function computeSummaryLocal(accounts) {
-            let totalBalance = 0, totalProfit = 0, activeBots = 0;
+        // ─── FILTER COUNT HELPER ─────────────────────────────────────────────────────
+        function updateFilterCounts(accounts) {
             let connected = 0, disconnected = 0, demo = 0, real = 0;
-
             accounts.forEach(acc => {
-                const status  = (acc.status || acc.account_status || '').toLowerCase();
-                const type    = (acc.account_type || acc.type || '').toLowerCase();
-                const balance = parseFloat(acc.balance || acc.account_balance || 0);
-                const profit  = parseFloat(acc.profit  || acc.account_profit  || 0);
-
-                totalBalance += balance;
-                totalProfit  += profit;
-
-                const isConnected = status === 'connected' || status === 'live' || status === 'active';
-                if (isConnected) { connected++; activeBots++; } else { disconnected++; }
+                const status = (acc.status || '').toLowerCase();
+                const type   = (acc.account_type || '').toLowerCase();
+                const isConn = status === 'active' || status === 'connected' || status === 'live';
+                if (isConn) connected++; else disconnected++;
                 if (type === 'demo') demo++; else real++;
             });
-
-            // Update filter counts
             const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
             set('fc-all',          accounts.length);
             set('fc-connected',    connected);
             set('fc-disconnected', disconnected);
             set('fc-demo',         demo);
             set('fc-real',         real);
+        }
 
-            // Update summary cards
+        // ─── COMPUTE SUMMARY FROM LOCAL DATA ────────────────────────────────────────
+        function computeSummaryLocal(accounts) {
+            // Use exact field names from proxy2 response
+            let totalBalance = 0, totalProfit = 0, activeBots = 0;
+
+            accounts.forEach(acc => {
+                const status     = (acc.status || '').toLowerCase();
+                const balance    = parseFloat(acc.account_balance || 0);
+                const profit     = parseFloat(acc.total_profit    || 0);
+                const isActive   = status === 'active' || status === 'connected' || status === 'live';
+
+                totalBalance += balance;
+                totalProfit  += profit;
+                if (isActive) activeBots++;
+            });
+
+            updateFilterCounts(accounts);
+
+            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
             set('stat-total',   accounts.length);
             set('stat-balance', formatMoney(totalBalance));
             set('stat-active',  `${activeBots}/${accounts.length}`);
+
             const profitEl = document.getElementById('stat-profit');
             if (profitEl) {
                 profitEl.textContent = (totalProfit >= 0 ? '+' : '') + formatMoney(totalProfit);
@@ -1175,57 +1198,55 @@
         // ─── FORMAT HELPERS ──────────────────────────────────────────────────────────
         function formatMoney(val) {
             const n = parseFloat(val) || 0;
-            if (Math.abs(n) >= 1000) return '$' + (n / 1000).toFixed(1) + 'k';
+            if (Math.abs(n) >= 1000000) return '$' + (n / 1000000).toFixed(2) + 'M';
+            if (Math.abs(n) >= 1000)    return '$' + (n / 1000).toFixed(1) + 'k';
             return '$' + n.toFixed(2);
-        }
-
-        function formatProfitPct(profit, balance) {
-            if (!balance || balance === 0) return '';
-            return '(' + ((profit / balance) * 100).toFixed(1) + '%)';
         }
 
         // ─── RENDER CARDS ────────────────────────────────────────────────────────────
         function buildAccountCard(acc, index) {
-            const accountId   = acc.account_id   || acc.id     || `ACC-${index + 1}`;
-            const botName     = acc.bot_name      || acc.name   || acc.account_name || 'N/A';
-            const balance     = parseFloat(acc.balance  || acc.account_balance  || 0);
-            const equity      = parseFloat(acc.equity   || acc.account_equity   || 0);
-            const profit      = parseFloat(acc.profit   || acc.account_profit   || 0);
-            const floating    = parseFloat(acc.floating || acc.floating_pl      || 0);
-            const buyCount    = parseInt  (acc.buy_count  || acc.open_buy   || 0);
-            const sellCount   = parseInt  (acc.sell_count || acc.open_sell  || 0);
-            const buyLot      = parseFloat(acc.buy_lot   || acc.buy_volume  || 0);
-            const sellLot     = parseFloat(acc.sell_lot  || acc.sell_volume || 0);
+            // Exact field names from proxy2 response
+            const accountId   = acc.account_id   || `ACC-${index + 1}`;
+            const botName     = acc.bot_name      || 'N/A';
+            const balance     = parseFloat(acc.account_balance         || 0);
+            const equity      = parseFloat(acc.account_equity          || 0);
+            const profit      = parseFloat(acc.total_profit            || 0);
+            const profitPct   = parseFloat(acc.total_profit_percentage || 0);
+            const floating    = parseFloat(acc.floating_value          || 0);
+            const buyCount    = parseInt  (acc.buy_order_count         || 0);
+            const sellCount   = parseInt  (acc.sell_order_count        || 0);
+            const buyLot      = parseFloat(acc.total_buy_lot           || 0);
+            const sellLot     = parseFloat(acc.total_sell_lot          || 0);
+            const leverage    = acc.leverage     || '–';
+            const currency    = acc.currency     || 'USD';
+            const broker      = acc.broker       || acc.server || '–';
+            const server      = acc.server       || '–';
+            const accountType = (acc.account_type || '').toLowerCase();
+            const status      = (acc.status       || '').toLowerCase();
+            const lastSync    = acc.last_sync     || acc.last_connected || null;
+            const totalOrders = acc.total_orders  || (buyCount + sellCount);
 
-            const statusRaw   = (acc.status || acc.account_status || '').toLowerCase();
-            const typeRaw     = (acc.account_type || acc.type || '').toLowerCase();
+            const isActive    = status === 'active' || status === 'connected' || status === 'live';
+            const isDemo      = accountType === 'demo';
+            const isOffline   = !isActive;
 
-            const isConnected = statusRaw === 'connected' || statusRaw === 'live' || statusRaw === 'active';
-            const isDemo      = typeRaw === 'demo';
-            const isOffline   = !isConnected;
-
-            const gradient    = acc.card_color || CARD_GRADIENTS[index % CARD_GRADIENTS.length];
+            const gradient    = CARD_GRADIENTS[index % CARD_GRADIENTS.length];
 
             // Status badge
             let statusBadge;
             if (isDemo) {
                 statusBadge = `<span class="status-badge" style="background:#8b5cf6;"><i class="fas fa-flask text-[0.4rem] mr-1"></i>Demo</span>`;
-            } else if (isConnected) {
+            } else if (isActive) {
                 statusBadge = `<span class="status-badge connected"><i class="fas fa-circle text-[0.4rem] mr-1 animate-pulse"></i>Live</span>`;
             } else {
                 statusBadge = `<span class="status-badge disconnected"><i class="fas fa-circle text-[0.4rem] mr-1"></i>Offline</span>`;
             }
 
-            // Profit display
             const profitClass = profit >= 0 ? 'profit-positive' : 'profit-negative';
             const profitSign  = profit >= 0 ? '+' : '';
-            const profitPct   = formatProfitPct(profit, balance);
-
-            // Floating display
             const floatClass  = floating >= 0 ? 'floating-positive' : 'floating-negative';
             const floatSign   = floating >= 0 ? '+' : '';
 
-            // Action buttons
             const btnDisabled = isOffline ? 'disabled' : '';
             const btnOpacity  = isOffline ? 'opacity-40 cursor-not-allowed' : '';
 
@@ -1234,9 +1255,13 @@
             const safeBalance = formatMoney(balance).replace(/['"]/g, '');
             const safeType    = isDemo ? 'Demo' : 'Live';
 
+            const lastSyncStr = lastSync
+                ? new Date(lastSync).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                : '–';
+
             return `
             <div class="account-card"
-                 data-status="${isConnected ? 'connected' : 'disconnected'}"
+                 data-status="${isActive ? 'connected' : 'disconnected'}"
                  data-type="${isDemo ? 'demo' : 'real'}"
                  data-id="${safeId.toLowerCase()}"
                  data-bot="${safeBot.toLowerCase()}">
@@ -1244,13 +1269,20 @@
                     <div class="flex items-start justify-between">
                         <div>
                             <p class="text-white opacity-75 text-xs">Account ID</p>
-                            <h3 class="text-white font-bold account-id">#${safeId}</h3>
+                            <h3 class="text-white font-bold account-id text-sm">#${safeId}</h3>
                         </div>
                         ${statusBadge}
                     </div>
                     <div class="mt-2">
                         <p class="text-white opacity-75 text-xs">Bot Name</p>
-                        <p class="text-white font-semibold bot-name">${botName}</p>
+                        <p class="text-white font-semibold bot-name text-sm">${botName}</p>
+                    </div>
+                    <div class="mt-1 flex items-center gap-2 text-white opacity-60 text-[0.65rem]">
+                        <span><i class="fas fa-building mr-1"></i>${broker}</span>
+                        <span>•</span>
+                        <span>1:${leverage}</span>
+                        <span>•</span>
+                        <span>${currency}</span>
                     </div>
                 </div>
 
@@ -1267,7 +1299,7 @@
                         <span class="metric-label"><i class="fas fa-chart-line text-purple-600"></i> Profit</span>
                         <span class="metric-value">
                             <span class="${profitClass} font-bold">${profitSign}${formatMoney(profit)}</span>
-                            <span class="text-[0.6rem] text-gray-500">${profitPct}</span>
+                            <span class="text-[0.6rem] text-gray-500">(${profitPct.toFixed(1)}%)</span>
                         </span>
                     </div>
                     <div class="metric-item">
@@ -1282,10 +1314,18 @@
                         <span class="metric-label"><i class="fas fa-water text-blue-600"></i> Floating</span>
                         <span class="metric-value ${floatClass} font-bold">${floatSign}${formatMoney(floating)}</span>
                     </div>
+                    <div class="metric-item">
+                        <span class="metric-label"><i class="fas fa-list text-gray-400"></i> Orders</span>
+                        <span class="metric-value text-gray-600">${totalOrders} total</span>
+                    </div>
 
                     <div class="card-divider"></div>
 
-                    <div class="flex gap-1.5 mt-2">
+                    <div class="text-[0.6rem] text-gray-400 text-right mb-1">
+                        <i class="fas fa-sync-alt mr-1"></i>Sync: ${lastSyncStr}
+                    </div>
+
+                    <div class="flex gap-1.5">
                         <button class="action-buy ${btnOpacity}" ${btnDisabled}
                             onclick="openBuyModal('${safeId}','${safeBot}','${safeBalance}','${safeType}')">
                             <i class="fas fa-arrow-up text-[0.6rem]"></i> Buy
@@ -1358,6 +1398,7 @@
         async function initAccounts() {
             try {
                 const data = await fetchAccountsFromServer();
+                console.log("data",data);
                 renderCards(data);
                 computeSummaryLocal(data);
             } catch (err) {
