@@ -58,7 +58,7 @@
             <div class="menu-item" onclick="navigateTo('trading')">
                 <i class="fas fa-chart-line"></i>
                 <span class="sidebar-text">Trading</span>
-                <span class="badge">3</span>
+                <span class="menu-badge">3</span>
             </div>
             <div class="menu-item" onclick="navigateTo('history')">
                 <i class="fas fa-history"></i>
@@ -90,13 +90,13 @@
         </nav>
 
         <!-- Upgrade Banner -->
-        <div class="absolute bottom-3 left-3 right-3 p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white sidebar-text">
+        <!-- <div class="absolute bottom-3 left-3 right-3 p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white sidebar-text">
             <p class="text-xs font-semibold mb-1">Upgrade to Pro</p>
             <p class="text-xs opacity-90 mb-1">Get advanced features</p>
             <button class="bg-white text-blue-600 text-xs px-2 py-1 rounded-full font-semibold">
                 Upgrade
             </button>
-        </div>
+        </div> -->
     </div>
 
     <!-- Main Content -->
@@ -117,11 +117,19 @@
             </div>
 
             <div class="flex items-center space-x-3">
-                <div class="relative">
+                <!-- Bell hidden for now -->
+                <!-- <div class="relative">
                     <i class="fas fa-bell text-gray-600 text-base cursor-pointer"></i>
                     <span class="badge">5</span>
+                </div> -->
+
+                <!-- Profile Dropdown -->
+                <div class="profile-dropdown-wrapper" id="profileDropdownWrapper">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile"
+                         id="profileAvatar"
+                         class="w-8 h-8 rounded-full cursor-pointer border-2 border-transparent hover:border-blue-600 transition-all"
+                         onclick="toggleProfileDropdown()">
                 </div>
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-8 h-8 rounded-full cursor-pointer border-2 border-transparent hover:border-blue-600">
             </div>
         </div>
 
@@ -348,6 +356,84 @@
 
     <script src="lib/js/accounts.js"></script>
 
+    <script>
+        // ── Profile dropdown (portal - rendered on body to escape all stacking contexts) ──
+        const dropdownHTML = `
+            <div id="profileDropdown" class="profile-dropdown">
+                <div class="profile-dropdown-header">
+                    <div class="profile-dropdown-name" id="dropdownUserName">User</div>
+                    <div class="profile-dropdown-role" id="dropdownUserRole">Trader</div>
+                </div>
+                <button class="profile-dropdown-item" onclick="navigateTo('profile'); closeProfileDropdown()">
+                    <i class="fas fa-user"></i> My Profile
+                </button>
+                <button class="profile-dropdown-item" onclick="navigateTo('settings'); closeProfileDropdown()">
+                    <i class="fas fa-cog"></i> Settings
+                </button>
+                <button class="profile-dropdown-item logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>`;
+        document.body.insertAdjacentHTML('beforeend', dropdownHTML);
+
+        function positionDropdown() {
+            const avatar = document.getElementById('profileAvatar');
+            const dropdown = document.getElementById('profileDropdown');
+            if (!avatar || !dropdown) return;
+            const rect = avatar.getBoundingClientRect();
+            dropdown.style.top  = (rect.bottom + window.scrollY + 8) + 'px';
+            dropdown.style.left = (rect.right  + window.scrollX - dropdown.offsetWidth) + 'px';
+        }
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            const isOpen = dropdown.classList.contains('open');
+            if (isOpen) {
+                closeProfileDropdown();
+            } else {
+                positionDropdown();
+                dropdown.classList.add('open');
+            }
+        }
+
+        function closeProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            if (dropdown) dropdown.classList.remove('open');
+        }
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            const avatar   = document.getElementById('profileAvatar');
+            const dropdown = document.getElementById('profileDropdown');
+            if (!dropdown) return;
+            if (!dropdown.contains(e.target) && e.target !== avatar) {
+                closeProfileDropdown();
+            }
+        });
+
+        // Reposition on scroll/resize
+        window.addEventListener('scroll', function() {
+            if (document.getElementById('profileDropdown').classList.contains('open')) {
+                positionDropdown();
+            }
+        });
+        window.addEventListener('resize', function() {
+            if (document.getElementById('profileDropdown').classList.contains('open')) {
+                positionDropdown();
+            }
+        });
+
+        // Populate name/role from localStorage
+        (function() {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const name = user.name || user.username || 'User';
+            const role = user.user_tipe || 'Trader';
+            const nameEl = document.getElementById('dropdownUserName');
+            const roleEl = document.getElementById('dropdownUserRole');
+            if (nameEl) nameEl.textContent = name;
+            if (roleEl) roleEl.textContent = role;
+        })();
+    </script>
 </body>
 
 </html>
