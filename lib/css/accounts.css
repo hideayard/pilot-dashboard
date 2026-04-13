@@ -84,6 +84,7 @@ body {
     transparent 70%
   );
   animation: rotate 10s linear infinite;
+  pointer-events: none; /* ← add this line */
 }
 
 @keyframes rotate {
