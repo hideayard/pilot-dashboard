@@ -46,7 +46,13 @@ $apiEndpoints = [
     'local_get_devices_with_data' => 'https://itrust.local/mobile/get-devices-with-data',
     'get_scrape_data' => 'https://itrust-tech.id/web/mobile/get-latest-scrape-data',
     'get_scrape_data_v2' => 'https://itrust-tech.id/web/mobile/get-latest-scrape-data-v2', // Optional
-
+    // ── new endpoints ──────────────────────────────────────────────────────────
+    'toggle_auto_trade'         => 'https://itrust-tech.id/web/mt4-account/toggle-auto-trade',
+    'toggle_buy_sell_status'    => 'https://itrust-tech.id/web/mt4-account/toggle-buy-sell-status',
+    'close_orders'              => 'https://itrust-tech.id/web/mt4-account/close-orders',
+    'order_buy'                 => 'https://itrust-tech.id/web/mt4-account/order-buy',
+    'order_sell'                => 'https://itrust-tech.id/web/mt4-account/order-sell',
+    'close_all_positions'       => 'https://itrust-tech.id/web/mt4-account/close-all-positions',
 ];
 
 // Get the action from POST or GET
@@ -62,8 +68,13 @@ if ($action == 'get_accounts_by_user' && $user_id != 0) {
     $apiUrl .= "?user_id=" . $user_id;
 }
 // Check if action requires authentication
-$requiresAuth = in_array($action, ['get_devices', 'get_scrape_data']);
-
+$requiresAuth = in_array($action, [
+    'get_devices',
+    'get_scrape_data',
+    'toggle_auto_trade',
+    'toggle_buy_sell_status',
+    'close_orders',
+]);
 // Get Authorization header
 $authHeader = null;
 
@@ -133,14 +144,24 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $apiUrl);
 
 // Set request method
-if (in_array($action, ['login', 'register', 'forgot_password', 'get_devices', 'get_scrape_data'])) {
-    curl_setopt($ch, CURLOPT_POST, true);
+$postActions = [
+    'login',
+    'register',
+    'forgot_password',
+    'get_devices',
+    'get_scrape_data',
+    'toggle_auto_trade',
+    'toggle_buy_sell_status',
+    'close_orders',
+];
+$jsonBodyActions = ['get_scrape_data', 'get_devices'];
 
-    // Set POST data appropriately
-    if (in_array($action, ['get_scrape_data', 'get_devices']) && !empty($postData)) {
+if (in_array($action, $postActions)) {
+    curl_setopt($ch, CURLOPT_POST, true);
+    if (in_array($action, $jsonBodyActions) && !empty($postData)) {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
     } else {
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
     }
 } else {
     curl_setopt($ch, CURLOPT_HTTPGET, true);
@@ -159,10 +180,10 @@ $headers = [
 ];
 
 // Set Content-Type based on action
-if (in_array($action, ['get_scrape_data', 'get_devices']) && !empty($postData)) {
+if (in_array($action, $jsonBodyActions) && !empty($postData)) {
     $headers[] = 'Content-Type: application/json';
 } else {
-    $headers[] = 'Content-Type: multipart/form-data';
+    $headers[] = 'Content-Type: application/x-www-form-urlencoded';
 }
 
 // Add Authorization header if we have one

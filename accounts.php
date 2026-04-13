@@ -126,9 +126,9 @@
                 <!-- Profile Dropdown -->
                 <div class="profile-dropdown-wrapper" id="profileDropdownWrapper">
                     <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile"
-                         id="profileAvatar"
-                         class="w-8 h-8 rounded-full cursor-pointer border-2 border-transparent hover:border-blue-600 transition-all"
-                         onclick="toggleProfileDropdown()">
+                        id="profileAvatar"
+                        class="w-8 h-8 rounded-full cursor-pointer border-2 border-transparent hover:border-blue-600 transition-all"
+                        onclick="toggleProfileDropdown()">
                 </div>
             </div>
         </div>
@@ -223,7 +223,13 @@
                 </div>
                 <div class="trade-summary-item">
                     <span class="text-gray-600">Volume:</span>
-                    <span class="font-semibold">0.01 lot (default)</span>
+                    <div class="flex items-center gap-1">
+                        <input type="number" id="buyLotInput"
+                            step="0.01" min="0.01"
+                            value="0.01"
+                            class="w-20 border border-gray-300 rounded-lg px-2 py-1 text-sm font-semibold text-center focus:outline-none focus:border-blue-500">
+                        <span class="text-gray-500 text-sm">lot</span>
+                    </div>
                 </div>
                 <!-- <div class="trade-summary-item">
                     <span class="text-gray-600">Est. Margin:</span>
@@ -268,7 +274,13 @@
                 </div>
                 <div class="trade-summary-item">
                     <span class="text-gray-600">Volume:</span>
-                    <span class="font-semibold">0.01 lot (default)</span>
+                    <div class="flex items-center gap-1">
+                        <input type="number" id="sellLotInput"
+                            step="0.01" min="0.01"
+                            value="0.01"
+                            class="w-20 border border-gray-300 rounded-lg px-2 py-1 text-sm font-semibold text-center focus:outline-none focus:border-red-500">
+                        <span class="text-gray-500 text-sm">lot</span>
+                    </div>
                 </div>
                 <!-- <div class="trade-summary-item">
                     <span class="text-gray-600">Est. Margin:</span>
@@ -381,8 +393,8 @@
             const dropdown = document.getElementById('profileDropdown');
             if (!avatar || !dropdown) return;
             const rect = avatar.getBoundingClientRect();
-            dropdown.style.top  = (rect.bottom + window.scrollY + 8) + 'px';
-            dropdown.style.left = (rect.right  + window.scrollX - dropdown.offsetWidth) + 'px';
+            dropdown.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+            dropdown.style.left = (rect.right + window.scrollX - dropdown.offsetWidth) + 'px';
         }
 
         function toggleProfileDropdown() {
@@ -403,7 +415,7 @@
 
         // Close when clicking outside
         document.addEventListener('click', function(e) {
-            const avatar   = document.getElementById('profileAvatar');
+            const avatar = document.getElementById('profileAvatar');
             const dropdown = document.getElementById('profileDropdown');
             if (!dropdown) return;
             if (!dropdown.contains(e.target) && e.target !== avatar) {
