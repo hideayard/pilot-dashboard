@@ -53,6 +53,11 @@ $apiEndpoints = [
     'order_buy'                 => 'https://itrust-tech.id/web/mt4-account/order-buy',
     'order_sell'                => 'https://itrust-tech.id/web/mt4-account/order-sell',
     'close_all_positions'       => 'https://itrust-tech.id/web/mt4-account/close-all-positions',
+    'get_orders_by_account'     => 'https://itrust-tech.id/web/mt4-account/get-orders-by-account',
+    'get_open_orders'           => 'https://itrust-tech.id/web/mt4-account/get-open-orders-by-account',
+    'get_closed_orders'         => 'https://itrust-tech.id/web/mt4-account/get-closed-orders-by-account',
+    'get_orders_summary'        => 'https://itrust-tech.id/web/mt4-account/get-orders-summary-by-account',
+
 ];
 
 // Get the action from POST or GET
@@ -77,6 +82,10 @@ $requiresAuth = in_array($action, [
     'order_buy',
     'order_sell',
     'close_all_positions',
+    'get_orders_by_account',
+    'get_open_orders',
+    'get_closed_orders',
+    'get_orders_summary',
 ]);
 // Get Authorization header
 $authHeader = null;
@@ -159,6 +168,10 @@ $postActions = [
     'order_buy',
     'order_sell',
     'close_all_positions',
+    'get_orders_by_account',
+    'get_open_orders',
+    'get_closed_orders',
+    'get_orders_summary',
 ];
 $jsonBodyActions = ['get_scrape_data', 'get_devices'];
 
