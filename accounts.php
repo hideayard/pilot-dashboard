@@ -224,7 +224,7 @@
                 <div class="trade-summary-item">
                     <span class="text-gray-600">Volume:</span>
                     <div class="flex items-center gap-1">
-                        <input type="number" id="buyLotInput"
+                        <input type="number" id="buyLotInput" disabled
                             step="0.01" min="0.01"
                             value="0.01"
                             class="w-20 border border-gray-300 rounded-lg px-2 py-1 text-sm font-semibold text-center focus:outline-none focus:border-blue-500">
@@ -275,7 +275,7 @@
                 <div class="trade-summary-item">
                     <span class="text-gray-600">Volume:</span>
                     <div class="flex items-center gap-1">
-                        <input type="number" id="sellLotInput"
+                        <input type="number" id="sellLotInput" disabled
                             step="0.01" min="0.01"
                             value="0.01"
                             class="w-20 border border-gray-300 rounded-lg px-2 py-1 text-sm font-semibold text-center focus:outline-none focus:border-red-500">

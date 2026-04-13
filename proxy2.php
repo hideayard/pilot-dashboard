@@ -74,6 +74,9 @@ $requiresAuth = in_array($action, [
     'toggle_auto_trade',
     'toggle_buy_sell_status',
     'close_orders',
+    'order_buy',
+    'order_sell',
+    'close_all_positions',
 ]);
 // Get Authorization header
 $authHeader = null;
@@ -153,6 +156,9 @@ $postActions = [
     'toggle_auto_trade',
     'toggle_buy_sell_status',
     'close_orders',
+    'order_buy',
+    'order_sell',
+    'close_all_positions',
 ];
 $jsonBodyActions = ['get_scrape_data', 'get_devices'];
 
