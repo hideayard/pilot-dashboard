@@ -135,14 +135,15 @@
 
         <!-- Page Title -->
         <div class="mb-6" data-aos="fade-up">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-800">MT4 Accounts</h1>
-                    <p class="text-sm text-gray-600 mt-1">Manage and trade on all your accounts</p>
-                </div>
-                <button class="mt-3 md:mt-0 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-2 text-sm font-semibold" onclick="addNewAccount()">
+            <!-- Add this button below the Add Account button (around line 145) -->
+            <div class="flex gap-2 mt-3 md:mt-0">
+                <button class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-2 text-sm font-semibold" onclick="addNewAccount()">
                     <i class="fas fa-plus"></i>
                     Add Account
+                </button>
+                <button id="autoSyncBtn" class="bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-2 rounded-xl hover:from-green-700 hover:to-teal-700 transition-all duration-300 flex items-center gap-2 text-sm font-semibold">
+                    <i class="fas fa-sync-alt"></i>
+                    Auto Sync
                 </button>
             </div>
         </div>
@@ -359,6 +360,72 @@
             <div>
                 <p class="font-semibold text-gray-800" id="toastTitle">Success</p>
                 <p class="text-sm text-gray-600" id="toastMessage">Trade executed successfully</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auto Sync Settings Modal -->
+    <div id="autoSyncModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4" style="display: none;">
+        <div class="modal-container" style="max-width: 450px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Auto Sync Settings</h3>
+                <button class="modal-close" onclick="closeAutoSyncModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-icon" style="background: #10b98120;">
+                <i class="fas fa-sync-alt text-green-600"></i>
+            </div>
+
+            <div class="p-4">
+                <!-- Toggle Switch -->
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <p class="font-semibold text-gray-800">Enable Auto Sync</p>
+                        <p class="text-xs text-gray-500">Automatically sync all MT4 accounts</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoSyncToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <!-- Interval Settings -->
+                <div class="mb-6" id="intervalSettings">
+                    <p class="font-semibold text-gray-800 mb-3">Sync Interval</p>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div>
+                            <label class="text-xs text-gray-500 block mb-1">Seconds</label>
+                            <input type="number" id="syncSeconds" value="0" min="0" max="59" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-green-500">
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 block mb-1">Minutes</label>
+                            <input type="number" id="syncMinutes" value="1" min="0" max="59" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-green-500">
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 block mb-1">Hours</label>
+                            <input type="number" id="syncHours" value="0" min="0" max="23" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-green-500">
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2" id="intervalPreview">Interval: 1 minute</p>
+                </div>
+
+                <!-- Status Message -->
+                <div id="autoSyncStatus" class="text-sm text-center p-2 rounded-lg mb-4 hidden"></div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3">
+                    <button class="flex-1 modal-btn modal-btn-secondary" onclick="closeAutoSyncModal()">
+                        Cancel
+                    </button>
+                    <button class="flex-1 modal-btn" id="saveSyncSettingsBtn" style="background: #10b981; color: white;">
+                        <i class="fas fa-save mr-1"></i> Save Settings
+                    </button>
+                    <button class="flex-1 modal-btn" id="proceedSyncNowBtn" style="background: #3b82f6; color: white;">
+                        <i class="fas fa-play mr-1"></i> Sync Now
+                    </button>
+                </div>
             </div>
         </div>
     </div>
