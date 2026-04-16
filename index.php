@@ -119,12 +119,12 @@
         return;
       }
       
-      let redirectUrl = '/dashboard.php';
+      let redirectUrl = '/accounts.php';
       
       if (user.user_tipe === "ADMIN") {
-        redirectUrl = '/dashboard.php';// '/admin/dashboard.php';
+        redirectUrl = '/accounts.php';// '/admin/dashboard.php';
       } else if (user.user_tipe === "USER") {
-        redirectUrl = '/dashboard.php';// '/user/dashboard.php';
+        redirectUrl = '/accounts.php';// '/user/dashboard.php';
       }
       
       console.log('Redirecting to:', redirectUrl);
